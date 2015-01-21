@@ -1,128 +1,129 @@
+<?xml version="1.0"?>
 <sbvr-specification>
   <sbvr-facts>
     <sbvr-fact>
       <noun-concept>AlimentoCrudo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>Alimento</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>Alimento</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Carne</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Huevo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Lacteo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Miel</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>AlimentoOrigenVegetal</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>Alimento</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Crudivarismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Crudiveganismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>OvoLactoVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Veganismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Vegetarianismo</noun-concept>
-      <verb>es un<verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
-
-    <sbvr-fact>
-      <noun-concept>Vegetarismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Vegetarismo</noun-concept>
-      <verb>abstiene consumo de<verb>
+      <verb>es un</verb>
+      <noun-concept>RegimenAlimentario</noun-concept>
+    </sbvr-fact>
+
+    <sbvr-fact>
+      <noun-concept>Vegetarismo</noun-concept>
+      <verb>abstiene consumo de</verb>
       <noun-concept>Carne</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Vegetarianismo</noun-concept>
-      <verb>abstiene consumo de<verb>
+      <verb>abstiene consumo de</verb>
       <noun-concept>Carne</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>Vegetarianismo</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>permite consumo de<verb>
+      <verb>permite consumo de</verb>
       <noun-concept>Miel</noun-concept>
     </sbvr-fact>
 
     <sbvr-fact>
       <noun-concept>Crudivarismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <disjunction>
 	<noun-concept>AlimentoCrudo</noun-concept>
 	<noun-concept>AlimentoOrigenVegetal</noun-concept>
@@ -131,7 +132,7 @@
 
     <sbvr-fact>
       <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <disjunction>
 	<noun-concept>Lacteo</noun-concept>
 	<noun-concept>AlimentoOrigenVegetal</noun-concept>
@@ -140,7 +141,7 @@
 
     <sbvr-fact>
       <noun-concept>OvoLactoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <disjunction>
 	<noun-concept>Huevo</noun-concept>
 	<noun-concept>Lacteo</noun-concept>
@@ -150,7 +151,7 @@
 
     <sbvr-fact>
       <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <disjunction>
 	<noun-concept>Huevo</noun-concept>
 	<noun-concept>AlimentoOrigenVegetal</noun-concept>
@@ -159,7 +160,7 @@
 
     <sbvr-fact>
       <noun-concept>Veganismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <noun-concept>AlimentoOrigenVegetal</noun-concept>
     </sbvr-fact>
 
@@ -170,126 +171,126 @@
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>AlimentoCrudo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>Alimento</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>Alimento</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Carne</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Huevo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Lacteo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Miel</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>AlimentoOrigenAnimal</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>Alimento</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Crudivarismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Crudiveganismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>OvoLactoVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Veganismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Vegetarianismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Vegetarismo</noun-concept>
-      <verb>es un<verb>
+      <verb>es un</verb>
       <noun-concept>RegimenAlimentario</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <noun-concept>Miel</noun-concept>
     </sbvr-rule>
 
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Crudivarismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <disjunction>
 	<noun-concept>AlimentoCrudo</noun-concept>
 	<noun-concept>AlimentoOrigenVegetal</noun-concept>
@@ -299,7 +300,7 @@
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <disjunction>
 	<noun-concept>Lacteo</noun-concept>
 	<noun-concept>AlimentoOrigenVegetal</noun-concept>
@@ -309,7 +310,7 @@
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de<verb>
+      <verb>solo permite consumo de</verb>
       <disjunction>
 	<noun-concept>Huevo</noun-concept>
 	<noun-concept>AlimentoOrigenVegetal</noun-concept>
@@ -319,7 +320,7 @@
     <sbvr-rule>
       <quantification type="universal">Each</quantification>
       <noun-concept>Veganismo</noun-concept>
-      <verb>solo permite consumo de<verb>}
+      <verb>solo permite consumo de</verb>}
       <noun-concept>AlimentoOrigenVegetal</noun-concept>
     </sbvr-rule>
 
