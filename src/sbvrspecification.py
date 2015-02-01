@@ -1,6 +1,5 @@
-from fact import Fact
 from rule import *
-from quantification import Quantification
+from fact import *
 import xml.etree.ElementTree as ET
 
 class SBVRSpecification:
@@ -33,15 +32,21 @@ class SBVRSpecification:
         for sbvr_fact in sbvr_facts:
             raw_facts = sbvr_fact.findall('sbvr-fact')
             for raw_fact in raw_facts:
-                domain_noun_concept = raw_fact.find('domain-noun-concept')
-                verb = raw_fact.find('verb').text
-                range_noun_concept = raw_fact.find('range-noun-concept')
-                self.facts.append(Fact(domain_noun_concept, verb, range_noun_concept))
+                self.facts.append(self.parse_fact(raw_fact))
+
+    def parse_fact(self, raw_fact):
+        """
+        Iterates over xml facts representations and creates facts objects
+        """
+        domain_noun_concept = raw_fact.find('domain-noun-concept').text
+        verb = raw_fact.find('verb').text
+        fact_range = self.parse_rule_range(raw_fact)
+        return Fact(domain_noun_concept, verb, fact_range)
 
 
     def parse_rules(self, root):
         """
-        Iterates over xml facts representations and creates facts objects
+        Iterates over xml facts representations and creates rules objects
         """
         sbvr_rules = root.findall('sbvr-rules')
         for sbvr_rule in sbvr_rules:
@@ -82,6 +87,17 @@ class SBVRSpecification:
                 disjunction_nouns.append(noun_concept.text)
             rule_range = Rule.RuleRange()
             rule_range.set_disjunction(disjunction_nouns)
+            return rule_range
+
+        # if conjunction has noun concepts, the rule is a conjunction
+        raw_conjunction = raw_rule.find('conjunction')
+        if raw_conjunction != None:
+            raw_noun_concepts = raw_conjunction.findall('range-noun-concept')
+            conjunction_nouns = []
+            for noun_concept in raw_noun_concepts:
+                conjunction_nouns.append(noun_concept.text)
+            rule_range = Rule.RuleRange()
+            rule_range.set_conjunction(conjunction_nouns)
             return rule_range
 
         # it must have only one noun concept then

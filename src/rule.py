@@ -2,6 +2,8 @@ class Rule:
     """
     This class represents an instance of a SBVR Rule.
     """
+    SUB_CLASS_OF_VERB = 'es un'
+
     quantification = None
     domain_noun_concept = ""
     verb = ""
@@ -15,7 +17,15 @@ class Rule:
         self.domain_noun_concept = domain_noun_concept
         self.verb = verb
         self.rule_range = rule_range
-        
+
+
+    def is_sub_class_of_rule(self):
+        """ 
+        Returns true if this rule is a statement of a subclass relationship.
+        """
+        return self.verb.lower() == self.SUB_CLASS_OF_VERB.lower()
+    
+
 
     class Quantification:
         """ 
@@ -61,7 +71,7 @@ class Rule:
             if self._disjunction != None:
                 return self._disjunction
                 
-            if self._disjunction != None:
+            if self._conjunction != None:
                 return self._conjunction
 
         def is_disjunction(self):
