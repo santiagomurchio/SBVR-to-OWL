@@ -30,13 +30,13 @@ class SBVRToOWL:
         Handles the transformation of the General Concepts, which are 'noun concepts that
         classifies things on the basis of their common properties'.
         """
-        # # A set so we can avoid duplicates
+        # A set so we can avoid duplicates
         owl_classes = set()
         for rule in self._sbvr_specification.rules:
             if rule.is_sub_class_of_rule():
-                owl_classes.add(self.extract_owl_sub_class(owl_classes, rule))
+                self.extract_owl_sub_class(owl_classes, rule)
             else:
-                owl_classes.add(self.extract_owl_classes(owl_classes, rule))
+                self.extract_owl_classes(owl_classes, rule)
 
         return owl_classes
 
@@ -44,7 +44,12 @@ class SBVRToOWL:
         """
         Extracts a sub-class-of relationship.
         """
-        return ''
+        # for now assume that the rule is a noun concept only 
+        # and no conjunction nor disjunction
+        child_class = rule.domain_noun_concept
+        parent_class = rule.rule_range.get_range() 
+        owl_class = self.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(classname = child_class, parent = parent_class)
+        owl_classes.add(owl_class)
 
     def extract_owl_classes(self, owl_classes, rule):
         """
@@ -57,4 +62,5 @@ class SBVRToOWL:
         else:
             for rule_range in rule.rule_range.get_range():
                 owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule_range))
-                    
+
+

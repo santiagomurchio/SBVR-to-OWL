@@ -34,25 +34,25 @@ class SBVRToOWLTest(unittest.TestCase):
                      </sbvr-facts>
 
                      <sbvr-rules>
+
                        <sbvr-rule>
-                         <quantification type="universal">Each</quantification>
-                         <domain-noun-concept>AlimentoCrudo</domain-noun-concept>
-                         <verb>es un</verb>
-                         <range-noun-concept>Alimento</range-noun-concept>
-                       </sbvr-rule>
+                          <quantification type="universal">Each</quantification>
+                          <domain-noun-concept>LactoVegetarianismo</domain-noun-concept>
+                          <verb>solo permite consumo de</verb>
+                          <range-noun-concept>Lacteo</range-noun-concept>
+                        </sbvr-rule>
 
                      </sbvr-rules>
                  </sbvr-specification>'''
 
         sbvr_specification = self.get_sbvr_specification_from_string(xml)
-        transformer = None
         transformer = SBVRToOWL(sbvr_specification, 'output.test')
         owl_classes = transformer.extract_owl_classes_and_sub_classes()
 
         self.assert_set_len(2, owl_classes)
         expected_classes = set()
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'AlimentoCrudo'))
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Alimento'))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'LactoVegetarianismo'))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Lacteo'))
         self.assert_sets_are_equal(expected_classes, owl_classes)
 
 
@@ -146,10 +146,10 @@ class SBVRToOWLTest(unittest.TestCase):
         transformer = SBVRToOWL(sbvr_specification, 'output.test')
         owl_classes = transformer.extract_owl_classes_and_sub_classes()
 
-        self.assert_set_len(3, owl_classes)
+        self.assert_set_len(1, owl_classes)
         expected_classes = set()
         owl_class = SBVRToOWL.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(parent = 'Alimento',
-                                                                     classname = 'LactoVegetarianismo')
+                                                                     classname = 'AlimentoCrudo')
         expected_classes.add(owl_class)
         self.assert_sets_are_equal(expected_classes, owl_classes)
 
