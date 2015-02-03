@@ -288,6 +288,7 @@
     </sbvr-rule>
 
     <sbvr-rule>
+
       <quantification type="universal">Each</quantification>
       <domain-noun-concept>Crudivarismo</domain-noun-concept>
       <verb>solo permite consumo de</verb>
