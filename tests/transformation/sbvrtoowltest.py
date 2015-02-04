@@ -154,6 +154,37 @@ class SBVRToOWLTest(unittest.TestCase):
         self.assert_sets_are_equal(expected_classes, owl_classes)
 
 
+    def test_extract_single_object_properties(self):
+        xml = '''<?xml version="1.0"?> 
+                   <sbvr-specification>
+                     <sbvr-facts>
+                     </sbvr-facts>
+
+                     <sbvr-rules>
+
+                       <sbvr-rule>
+                          <quantification type="universal">Each</quantification>
+                          <domain-noun-concept>LactoVegetarianismo</domain-noun-concept>
+                          <verb>solo permite consumo de</verb>
+                          <range-noun-concept>Lacteo</range-noun-concept>
+                        </sbvr-rule>
+
+                     </sbvr-rules>
+                 </sbvr-specification>'''
+
+        sbvr_specification = self.get_sbvr_specification_from_string(xml)
+        transformer = None
+        transformer = SBVRToOWL(sbvr_specification, 'output.test')
+        owl_object_properties = transformer.extract_owl_object_properties()
+
+        self.assert_set_len(1, owl_object_properties)
+        expected_object_properties = set()
+        owl_object_property = SBVRToOWL.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(parent = 'Alimento',
+                                                                               classname = 'AlimentoCrudo')
+        expected_object_properties.add(owl_object_property)
+        self.assert_sets_are_equal(expected_object_properties, owl_object_properties)
+
+
     def get_sbvr_specification_from_string(self, xml_string):
         """ 
         Builds the sbvr specification object from the xml string.

@@ -23,7 +23,7 @@ class SBVRToOWL:
         OWL expressions.
         """
         owl_classes = self.extract_owl_classes_and_sub_classes()
-    
+        owl_object_properties = self.extract_owl_object_properties()
 
     def extract_owl_classes_and_sub_classes(self):
         """
@@ -63,4 +63,22 @@ class SBVRToOWL:
             for rule_range in rule.rule_range.get_range():
                 owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule_range))
 
+    def extract_owl_object_properties(self):
+        """ 
+        Extracts the object properties from the sbvr specification
+        """
+        owl_object_properties = set()
+        for rule in self._sbvr_specification.rules:
+            self.extract_owl_object_property_from_rule(owl_object_properties, rule)
 
+        return owl_object_properties
+
+    def extract_owl_object_property_from_rule(self, owl_object_properties, rule):
+        """
+        Works on a SBVR rule to extract an object property. If the SBVR rule is
+        a description of a subclass, this method does not extract it.
+        """
+        if rule.is_sub_class_of_rule():
+            return
+            
+        
