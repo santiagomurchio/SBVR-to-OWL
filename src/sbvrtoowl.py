@@ -1,4 +1,6 @@
-class SBVRToOWL:
+from owl_file import *
+
+class SBVRToOWL(OWLFile):
     """
     This class represents the core of the transformation process.
     """
@@ -6,6 +8,15 @@ class SBVRToOWL:
     OWL_CLASS_AND_SUBCLASS_TEMPLATE = '''<owl:Class rdf:about="{classname}" >
                                            </rdfs:subClassOf rdf:resource="{parent}"/>
                                          </owl:Class>'''
+
+    OWL_OBJECT_PROPERTY_TEMPLATE = '''<owl:ObjectProperty rdf:about="{op_name}">
+                                        <rdfs:range rdf:resource="{op_range}"/>
+                                        <rdfs:domain rdf:resource="{op_domain}"/>
+                                      </owl:ObjectProperty>'''
+    
+    OWL_ONTOLOGY = '''<owl:Ontology rdf:about="{ontology_prefix}"/>'''
+
+    
 
     _sbvr_specification = None
     _output_file = None
@@ -81,4 +92,12 @@ class SBVRToOWL:
         if rule.is_sub_class_of_rule():
             return
             
+        # for now we assume that the rule is only a noun concept
+        op_range = rule.rule_range.get_range()
+        op_domain = rule.domain_noun_concept
+        op_name = rule.verb
+        owl_op = self.OWL_OBJECT_PROPERTY_TEMPLATE.format(op_name = op_name,
+                                                          op_domain = op_domain,
+                                                          op_range = op_range)
+        return owl_op
         

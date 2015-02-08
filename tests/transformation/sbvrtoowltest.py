@@ -179,8 +179,9 @@ class SBVRToOWLTest(unittest.TestCase):
 
         self.assert_set_len(1, owl_object_properties)
         expected_object_properties = set()
-        owl_object_property = SBVRToOWL.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(parent = 'Alimento',
-                                                                               classname = 'AlimentoCrudo')
+        owl_op = SBVRToOWL.OWL_OBJECT_PROPERTY_TEMPLATE.format(op_name = 'solo permite consumo de',
+                                                               op_domain = 'LactoVegetarianismo',
+                                                               op_range = 'Lacteo')
         expected_object_properties.add(owl_object_property)
         self.assert_sets_are_equal(expected_object_properties, owl_object_properties)
 
