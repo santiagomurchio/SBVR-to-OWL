@@ -24,6 +24,13 @@ class SBVRSpecification:
         self.parse_facts(root)
         self.parse_rules(root)
 
+    def from_xml_file(self, filename):
+        """
+        Parses the xml filas given as a parameter.
+        """
+        root = ET.parse(filename).getroot()
+        self.from_xml(root)
+
     def parse_facts(self, root):
         """
         Iterates over xml facts representations and creates facts objects
