@@ -36,6 +36,36 @@ class SBVRToOWL(OWLFile):
         owl_classes = self.extract_owl_classes_and_sub_classes()
         owl_object_properties = self.extract_owl_object_properties()
 
+        self.write_ontology_to_owl_file(owl_classes, owl_object_properties)
+
+    def write_ontology_to_owl_file(self, owl_classes, owl_object_properties):
+        """ 
+        Writes the owl specification to the given file.
+        """
+        owl_content = self.build_owl_content(owl_classes, owl_object_properties)
+        
+        # header
+        self._output_file.write(self.XML_VERSION + '\n')
+        
+        # doctype
+        self._output_file.write(self.OWL_DOCTYPE + '\n')
+        
+        # rdf namespaces
+        rdf_content = self.OWL_RDF_NAMESPACES.format(owl_file_content = owl_content)
+        self._output_file.write(rdf_content + '\n')
+        
+
+    def build_owl_content(self, owl_classes, owl_object_properties):
+        """
+        Builds the owl content to write to the file.
+        """
+        classes = '\n'.join(owl_classes)
+        object_properties = '\n'.join(owl_object_properties)
+
+        file_content =  object_properties + '\n\n' + classes
+        return file_content
+        
+
     def extract_owl_classes_and_sub_classes(self):
         """
         Handles the transformation of the General Concepts, which are 'noun concepts that
@@ -99,5 +129,6 @@ class SBVRToOWL(OWLFile):
         owl_op = self.OWL_OBJECT_PROPERTY_TEMPLATE.format(op_name = op_name,
                                                           op_domain = op_domain,
                                                           op_range = op_range)
-        return owl_op
+        owl_object_properties.add(owl_op)
         
+

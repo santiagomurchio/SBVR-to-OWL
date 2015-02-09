@@ -1,5 +1,5 @@
-from sbvrspecification import SBVRSpecification
-from sbvrtoowltransformer import SBVRToOWLTransformer
+from src.sbvrspecification import SBVRSpecification
+from src.sbvrtoowl import SBVRToOWL
 
 def print_help_Message():
     """
@@ -24,18 +24,29 @@ def get_output_filename():
         filename = "ontology.owl"
     return filename
 
+
+def get_input_filename():
+    """ 
+    Parse the xml file indicated by the user and returns its tree object.
+    """
+    filename = raw_input("Enter SBVR specification filename (default: rules.xml): ")
+    if filename == "":
+        filename = "rules.xml"
+    return filename
+
 # Main steps
 print_help_Message()
+input_filename = get_input_filename()
+output_filename = get_output_filename()
 
 sbvr_specification = SBVRSpecification()
-sbvr_specification.from_xml_file()
+sbvr_specification.from_xml_file(input_filename)
 
-filename = get_output_filename()
 
-sbvr_to_owl = SBVRToOWLTransformer(sbvr_specification, filename) 
+sbvr_to_owl = SBVRToOWL(sbvr_specification, output_filename) 
 
-sbvr_to_owl.apply_transformations()
-sbvr_to_owl.write_owl_expressions()
+sbvr_to_owl.transform()
+
 
 
 

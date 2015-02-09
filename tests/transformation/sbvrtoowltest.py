@@ -182,7 +182,7 @@ class SBVRToOWLTest(unittest.TestCase):
         owl_op = SBVRToOWL.OWL_OBJECT_PROPERTY_TEMPLATE.format(op_name = 'solo permite consumo de',
                                                                op_domain = 'LactoVegetarianismo',
                                                                op_range = 'Lacteo')
-        expected_object_properties.add(owl_object_property)
+        expected_object_properties.add(owl_op)
         self.assert_sets_are_equal(expected_object_properties, owl_object_properties)
 
 

@@ -1,4 +1,4 @@
-from sbvrespecification import SBVRSpecification
+from sbvrspecification import SBVRSpecification
 
 class SBVRToOWLTransformer:
     """

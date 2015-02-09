@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<sbvr-specification>
+  <sbvr-facts>
+
+  </sbvr-facts>
+
+  <sbvr-rules>
+
+    <sbvr-rule>
+      <quantification type="universal">Each</quantification>
+      <domain-noun-concept>AlimentoCrudo</domain-noun-concept>
+      <verb>es un</verb>
+      <range-noun-concept>Alimento</range-noun-concept>
+    </sbvr-rule>
+
+    <sbvr-rule>
+      <quantification type="universal">Each</quantification>
+      <domain-noun-concept>AlimentoOrigenAnimal</domain-noun-concept>
+      <verb>es un</verb>
+      <range-noun-concept>Alimento</range-noun-concept>
+    </sbvr-rule>
+
+    <sbvr-rule>
+      <quantification type="universal">Each</quantification>
+      <domain-noun-concept>ApiVegetarianismo</domain-noun-concept>
+      <verb>solo permite consumo de</verb>
+      <range-noun-concept>Miel</range-noun-concept>
+    </sbvr-rule>
+
+  </sbvr-rules>
+</sbvr-specification>
