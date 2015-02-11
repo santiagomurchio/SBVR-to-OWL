@@ -21,7 +21,7 @@ class SBVRToOWLTest(unittest.TestCase):
                  </sbvr-specification>'''
 
         sbvr_specification = self.get_sbvr_specification_from_string(xml)
-        transformer = SBVRToOWL(sbvr_specification, 'output.test')
+        transformer = SBVRToOWL(sbvr_specification, 'output.test', '')
         owl_classes = transformer.extract_owl_classes_and_sub_classes()
         
         self.assert_set_len(0, owl_classes)
@@ -46,13 +46,15 @@ class SBVRToOWLTest(unittest.TestCase):
                  </sbvr-specification>'''
 
         sbvr_specification = self.get_sbvr_specification_from_string(xml)
-        transformer = SBVRToOWL(sbvr_specification, 'output.test')
+        transformer = SBVRToOWL(sbvr_specification, 'output.test', '')
         owl_classes = transformer.extract_owl_classes_and_sub_classes()
 
         self.assert_set_len(2, owl_classes)
         expected_classes = set()
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'LactoVegetarianismo'))
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Lacteo'))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'LactoVegetarianismo',
+                                                                 prefix = ''))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Lacteo',
+                                                                 prefix = ''))
         self.assert_sets_are_equal(expected_classes, owl_classes)
 
 
@@ -79,14 +81,17 @@ class SBVRToOWLTest(unittest.TestCase):
 
         sbvr_specification = self.get_sbvr_specification_from_string(xml)
         transformer = None
-        transformer = SBVRToOWL(sbvr_specification, 'output.test')
+        transformer = SBVRToOWL(sbvr_specification, 'output.test', '')
         owl_classes = transformer.extract_owl_classes_and_sub_classes()
 
         self.assert_set_len(3, owl_classes)
         expected_classes = set()
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'LactoVegetarianismo'))
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Lacteo'))
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'AlimentoOrigenVegetal'))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'LactoVegetarianismo',
+                                                                 prefix = ''))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Lacteo',
+                                                                 prefix = ''))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'AlimentoOrigenVegetal',
+                                                                 prefix = ''))
         self.assert_sets_are_equal(expected_classes, owl_classes)
 
 
@@ -113,14 +118,17 @@ class SBVRToOWLTest(unittest.TestCase):
 
         sbvr_specification = self.get_sbvr_specification_from_string(xml)
         transformer = None
-        transformer = SBVRToOWL(sbvr_specification, 'output.test')
+        transformer = SBVRToOWL(sbvr_specification, 'output.test', '')
         owl_classes = transformer.extract_owl_classes_and_sub_classes()
 
         self.assert_set_len(3, owl_classes)
         expected_classes = set()
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'LactoVegetarianismo'))
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Lacteo'))
-        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'AlimentoOrigenVegetal'))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'LactoVegetarianismo',
+                                                                 prefix = ''))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'Lacteo',
+                                                                 prefix = ''))
+        expected_classes.add(SBVRToOWL.OWL_CLASS_TEMPLATE.format(classname = 'AlimentoOrigenVegetal',
+                                                                 prefix = ''))
         self.assert_sets_are_equal(expected_classes, owl_classes)
 
 
@@ -143,13 +151,14 @@ class SBVRToOWLTest(unittest.TestCase):
 
         sbvr_specification = self.get_sbvr_specification_from_string(xml)
         transformer = None
-        transformer = SBVRToOWL(sbvr_specification, 'output.test')
+        transformer = SBVRToOWL(sbvr_specification, 'output.test', '')
         owl_classes = transformer.extract_owl_classes_and_sub_classes()
 
         self.assert_set_len(1, owl_classes)
         expected_classes = set()
         owl_class = SBVRToOWL.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(parent = 'Alimento',
-                                                                     classname = 'AlimentoCrudo')
+                                                                     classname = 'AlimentoCrudo',
+                                                                     prefix = '')
         expected_classes.add(owl_class)
         self.assert_sets_are_equal(expected_classes, owl_classes)
 
@@ -174,14 +183,15 @@ class SBVRToOWLTest(unittest.TestCase):
 
         sbvr_specification = self.get_sbvr_specification_from_string(xml)
         transformer = None
-        transformer = SBVRToOWL(sbvr_specification, 'output.test')
+        transformer = SBVRToOWL(sbvr_specification, 'output.test', '')
         owl_object_properties = transformer.extract_owl_object_properties()
 
         self.assert_set_len(1, owl_object_properties)
         expected_object_properties = set()
         owl_op = SBVRToOWL.OWL_OBJECT_PROPERTY_TEMPLATE.format(op_name = 'solo permite consumo de',
                                                                op_domain = 'LactoVegetarianismo',
-                                                               op_range = 'Lacteo')
+                                                               op_range = 'Lacteo', 
+                                                               prefix = '')
         expected_object_properties.add(owl_op)
         self.assert_sets_are_equal(expected_object_properties, owl_object_properties)
 

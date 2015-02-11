@@ -14,8 +14,10 @@ def print_help_Message():
     print("If the file does not exist, it will be created. If it does exists, and it already has content, .")
     print("it will be overwritten.")
     print("")
+    print("3.- The program will ask you to enter the prefix to be used in the ontology (url).")
+    print("")
 
-def get_output_filename():
+def ask_output_filename():
     """ 
     Parse the xml file indicated by the user and returns its tree object.
     """
@@ -25,7 +27,7 @@ def get_output_filename():
     return filename
 
 
-def get_input_filename():
+def ask_input_filename():
     """ 
     Parse the xml file indicated by the user and returns its tree object.
     """
@@ -34,16 +36,23 @@ def get_input_filename():
         filename = "rules.xml"
     return filename
 
+def ask_prefix():
+    """ 
+    Parse the xml file indicated by the user and returns its tree object.
+    """
+    return  raw_input("Enter ontology base url (default: ''): ")
+
 # Main steps
 print_help_Message()
-input_filename = get_input_filename()
-output_filename = get_output_filename()
+input_filename = ask_input_filename()
+output_filename = ask_output_filename()
+prefix = ask_prefix()
 
 sbvr_specification = SBVRSpecification()
 sbvr_specification.from_xml_file(input_filename)
 
 
-sbvr_to_owl = SBVRToOWL(sbvr_specification, output_filename) 
+sbvr_to_owl = SBVRToOWL(sbvr_specification, output_filename, prefix) 
 
 sbvr_to_owl.transform()
 

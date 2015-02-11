@@ -4,29 +4,32 @@ class SBVRToOWL(OWLFile):
     """
     This class represents the core of the transformation process.
     """
-    OWL_CLASS_TEMPLATE = '<owl:Class rdf:about="{classname}" />'
-    OWL_CLASS_AND_SUBCLASS_TEMPLATE = '''<owl:Class rdf:about="{classname}" >
-                                           </rdfs:subClassOf rdf:resource="{parent}"/>
+    OWL_CLASS_TEMPLATE = '<owl:Class rdf:about="{prefix}#{classname}" />'
+    OWL_CLASS_AND_SUBCLASS_TEMPLATE = '''<owl:Class rdf:about="{prefix}#{classname}" >
+                                           </rdfs:subClassOf rdf:resource="{prefix}#{parent}"/>
                                          </owl:Class>'''
 
-    OWL_OBJECT_PROPERTY_TEMPLATE = '''<owl:ObjectProperty rdf:about="{op_name}">
-                                        <rdfs:range rdf:resource="{op_range}"/>
-                                        <rdfs:domain rdf:resource="{op_domain}"/>
+    OWL_OBJECT_PROPERTY_TEMPLATE = '''<owl:ObjectProperty rdf:about="{prefix}#{op_name}">
+                                        <rdfs:range rdf:resource="{prefix}#{op_range}"/>
+                                        <rdfs:domain rdf:resource="{prefix}#{op_domain}"/>
                                       </owl:ObjectProperty>'''
     
-    OWL_ONTOLOGY = '''<owl:Ontology rdf:about="{ontology_prefix}"/>'''
+    OWL_ONTOLOGY = '''<owl:Ontology rdf:about="{prefix}"/>'''
 
     
 
     _sbvr_specification = None
     _output_file = None
+    _prefix = None
 
-    def __init__(self, sbvr_specification, filename):
+    def __init__(self, sbvr_specification, filename, prefix):
         """
         Constructor.
         """
         self._sbvr_specification = sbvr_specification
         self._output_file = open(filename, 'w')
+        self._prefix = prefix
+
 
     def transform(self):
         """
@@ -51,7 +54,8 @@ class SBVRToOWL(OWLFile):
         self._output_file.write(self.OWL_DOCTYPE + '\n')
         
         # rdf namespaces
-        rdf_content = self.OWL_RDF_NAMESPACES.format(owl_file_content = owl_content)
+        rdf_content = self.OWL_RDF_NAMESPACES.format(owl_file_content = owl_content, 
+                                                     prefix = self._prefix)
         self._output_file.write(rdf_content + '\n')
         
 
@@ -61,8 +65,9 @@ class SBVRToOWL(OWLFile):
         """
         classes = '\n'.join(owl_classes)
         object_properties = '\n'.join(owl_object_properties)
+        owl_ontology = OWL_ONTOLOGY.format(prefix = self._prefix)
 
-        file_content =  object_properties + '\n\n' + classes
+        file_content =   + '\n\n' + owl_ontology + '\n\n' + object_properties + '\n\n' + classes + '\n\n'
         return file_content
         
 
@@ -89,20 +94,25 @@ class SBVRToOWL(OWLFile):
         # and no conjunction nor disjunction
         child_class = rule.domain_noun_concept
         parent_class = rule.rule_range.get_range() 
-        owl_class = self.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(classname = child_class, parent = parent_class)
+        owl_class = self.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(classname = child_class, 
+                                                                parent = parent_class,
+                                                                prefix = self._prefix)
         owl_classes.add(owl_class)
 
     def extract_owl_classes(self, owl_classes, rule):
         """
         Extracts the plain classes from a SBVR rule
         """
-        owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule.domain_noun_concept))
+        owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule.domain_noun_concept,
+                                                       prefix = self._prefix))
         
         if rule.rule_range.is_noun_concept():
-            owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule.rule_range.get_range()))
+            owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule.rule_range.get_range(), 
+                                                           prefix = self._prefix))
         else:
             for rule_range in rule.rule_range.get_range():
-                owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule_range))
+                owl_classes.add(self.OWL_CLASS_TEMPLATE.format(classname = rule_range,
+                                                               prefix = self._prefix))
 
     def extract_owl_object_properties(self):
         """ 
@@ -128,7 +138,8 @@ class SBVRToOWL(OWLFile):
         op_name = rule.verb
         owl_op = self.OWL_OBJECT_PROPERTY_TEMPLATE.format(op_name = op_name,
                                                           op_domain = op_domain,
-                                                          op_range = op_range)
+                                                          op_range = op_range,
+                                                          prefix = self._prefix)
         owl_object_properties.add(owl_op)
         
 
