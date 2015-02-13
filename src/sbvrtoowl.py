@@ -6,17 +6,14 @@ class SBVRToOWL(OWLFile):
     """
     OWL_CLASS_TEMPLATE = '<owl:Class rdf:about="{prefix}#{classname}" />'
     OWL_CLASS_AND_SUBCLASS_TEMPLATE = '''<owl:Class rdf:about="{prefix}#{classname}" >
-                                           </rdfs:subClassOf rdf:resource="{prefix}#{parent}"/>
-                                         </owl:Class>'''
-
+                                               </rdfs:subClassOf rdf:resource="{prefix}#{parent}"/>
+                                             </owl:Class>'''
     OWL_OBJECT_PROPERTY_TEMPLATE = '''<owl:ObjectProperty rdf:about="{prefix}#{op_name}">
                                         <rdfs:range rdf:resource="{prefix}#{op_range}"/>
                                         <rdfs:domain rdf:resource="{prefix}#{op_domain}"/>
                                       </owl:ObjectProperty>'''
     
     OWL_ONTOLOGY = '''<owl:Ontology rdf:about="{prefix}"/>'''
-
-    
 
     _sbvr_specification = None
     _output_file = None
@@ -143,3 +140,36 @@ class SBVRToOWL(OWLFile):
         owl_object_properties.add(owl_op)
         
 
+    class OWLClass:
+        """
+        Holds the characteristics of an OWL class, like it's parent, and also the equivalences.
+        """
+        OWL_CLASS_TEMPLATE = '<owl:Class rdf:about="{prefix}#{classname}" />'
+        OWL_CLASS_AND_SUBCLASS_TEMPLATE = '''<owl:Class rdf:about="{prefix}#{classname}" >
+                                               </rdfs:subClassOf rdf:resource="{prefix}#{parent}"/>
+                                             </owl:Class>'''
+        _owl_class = None
+        _owl_parent_class = None
+        _owl_equivalence = None
+
+
+        def __init__(self, owl_class, owl_parent_class, owl_equivalence):
+            """
+            Initialize the instance
+            """
+            self._owl_class = owl_class
+            self._owl_parent_class = owl_parent_class
+            self._owl_equivalence = owl_equivalence
+
+        def to_owl(self):
+            """
+            Writes the content of this instance to owl (xml) format.
+            """
+            if self._owl_parent_class != None:
+                return self.OWL_CLASS_AND_SUBCLASS_TEMPLATE.format(prefix = self.prefix,
+                                                                   classname = self._owl_class,
+                                                                   parent = self._owl_parent_class)
+            else:
+                return self.OWL_CLASS_TEMPLATE.format(prefix = self.prefix,
+                                                      classname = self._owl_class)
+                
