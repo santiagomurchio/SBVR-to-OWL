@@ -1,4 +1,5 @@
 class Fact:
+
     """
     This class represents an instance of a SBVR Fact.
     """
