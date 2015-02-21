@@ -1,328 +1,218 @@
 <?xml version="1.0"?>
 <sbvr-specification>
-  <sbvr-facts>
-    <sbvr-fact>
-      <noun-concept>AlimentoCrudo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>Alimento</noun-concept>
-    </sbvr-fact>
 
-    <sbvr-fact>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>Alimento</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Alimento</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Carne</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>AlimentoCrudo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>Alimento</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Huevo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>AlimentoOrigenAnimal</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>Alimento</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Lacteo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>AlimentoOrigenVegetal</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>Alimento</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Miel</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Carne</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type></sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>AlimentoOrigenVegetal</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>Alimento</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Huevo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Lacteo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Crudivarismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Miel</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Crudiveganismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>RegimenAlimentario</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Dieta</sbvr-term-synonym>
+    <sbvr-term-necessity>
+      <sbvr-verb>permite consumo de</sbvr-verb>
+      <sbvr-quantification type="at-least-N">1</sbvr-quantification>
+      <sbvr-concept>Alimento</sbvr-concept>
+    </sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Dieta</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>RegimenAlimentario</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>OvoLactoVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>ApiVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite consumo de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Miel</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Crudivarismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite consumo de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-conjunction>
+	<sbvr-concept>AlimentoCrudo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-conjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Crudiveganismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Veganismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Crudiveganismo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Crudivarismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Vegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>LactoVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite consumo de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Lacteo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Vegetarismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>OvoLactoVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite consumo de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Huevo</sbvr-concept>
+	<sbvr-concept>Lacteo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Vegetarismo</noun-concept>
-      <verb>abstiene consumo de</verb>
-      <noun-concept>Carne</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>OvoVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite consumo de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Huevo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>Vegetarianismo</noun-concept>
-      <verb>abstiene consumo de</verb>
-      <noun-concept>Carne</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Veganismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite consumo de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>Vegetarianismo</noun-concept>
-    </sbvr-fact>
+  <sbvr-term>
+    <sbvr-term-name>Vegetarianismo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Vegetarismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-fact>
-      <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>permite consumo de</verb>
-      <noun-concept>Miel</noun-concept>
-    </sbvr-fact>
-
-    <sbvr-fact>
-      <noun-concept>Crudivarismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <disjunction>
-	<noun-concept>AlimentoCrudo</noun-concept>
-	<noun-concept>AlimentoOrigenVegetal</noun-concept>
-      </disjunction>
-    </sbvr-fact>
-
-    <sbvr-fact>
-      <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <disjunction>
-	<noun-concept>Lacteo</noun-concept>
-	<noun-concept>AlimentoOrigenVegetal</noun-concept>
-      </disjunction>
-    </sbvr-fact>
-
-    <sbvr-fact>
-      <noun-concept>OvoLactoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <disjunction>
-	<noun-concept>Huevo</noun-concept>
-	<noun-concept>Lacteo</noun-concept>
-	<noun-concept>AlimentoOrigenVegetal</noun-concept>
-      </disjunction>
-    </sbvr-fact>
-
-    <sbvr-fact>
-      <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <disjunction>
-	<noun-concept>Huevo</noun-concept>
-	<noun-concept>AlimentoOrigenVegetal</noun-concept>
-      </disjunction>
-    </sbvr-fact>
-
-    <sbvr-fact>
-      <noun-concept>Veganismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <noun-concept>AlimentoOrigenVegetal</noun-concept>
-    </sbvr-fact>
-
-  </sbvr-facts>
-
-  <sbvr-rules>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>AlimentoCrudo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>Alimento</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>Alimento</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Carne</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Huevo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Lacteo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Miel</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>AlimentoOrigenAnimal</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>Alimento</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Crudivarismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Crudiveganismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>OvoLactoVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Veganismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Vegetarianismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Vegetarismo</noun-concept>
-      <verb>es un</verb>
-      <noun-concept>RegimenAlimentario</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>ApiVegetarianismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <noun-concept>Miel</noun-concept>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Crudivarismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <disjunction>
-	<noun-concept>AlimentoCrudo</noun-concept>
-	<noun-concept>AlimentoOrigenVegetal</noun-concept>
-      </disjunction>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>LactoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <disjunction>
-	<noun-concept>Lacteo</noun-concept>
-	<noun-concept>AlimentoOrigenVegetal</noun-concept>
-      </disjunction>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>OvoVegetarianismo</noun-concept>
-      <verb>solo permite consumo de</verb>
-      <disjunction>
-	<noun-concept>Huevo</noun-concept>
-	<noun-concept>AlimentoOrigenVegetal</noun-concept>
-      </disjunction>
-    </sbvr-rule>
-
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <noun-concept>Veganismo</noun-concept>
-      <verb>solo permite consumo de</verb>}
-      <noun-concept>AlimentoOrigenVegetal</noun-concept>
-    </sbvr-rule>
-
-  </sbvr-rules>
+  <sbvr-term>
+    <sbvr-term-name>Vegetarismo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Vegetarianismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 </sbvr-specification>
