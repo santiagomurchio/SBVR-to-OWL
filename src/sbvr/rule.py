@@ -9,22 +9,41 @@ class Rule:
     verb = ""
     rule_range = None
 
-    def __init__(self, quantification_type, quantification_text, domain_noun_concept, verb, rule_range):
-        """
-        Constructor for a Fact object
-        """
-        self.quantification = Rule.Quantification(quantification_type, quantification_text)
-        self.domain_noun_concept = domain_noun_concept
-        self.verb = verb
-        self.rule_range = rule_range
-
+    # def __init__(self, quantification_type, quantification_text, domain_noun_concept, verb, rule_range):
+    #     """
+    #     Constructor for a Fact object
+    #     """
+    #     self.quantification = Rule.Quantification(quantification_type, quantification_text)
+    #     self.domain_noun_concept = domain_noun_concept
+    #     self.verb = verb
+    #     self.rule_range = rule_range
 
     def is_sub_class_of_rule(self):
         """ 
         Returns true if this rule is a statement of a subclass relationship.
         """
         return self.verb.lower() == self.SUB_CLASS_OF_VERB.lower()
-    
+
+    def get_verb(self):
+        return self.verb
+
+    def set_verb(self, verb):
+        self.verb = verb
+
+    def get_quantification(self):
+        return self.quantification
+
+    def get_rule_range(self):
+        return self.rule_range
+
+    def set_quantification(self, quantification):
+        self.quantification = quantification
+
+    def set_verb(self, verb):
+        self.verb = verb
+
+    def set_rule_range(self, rule_range):
+        self.rule_range = rule_range
 
 
     class Quantification:
@@ -34,15 +53,27 @@ class Rule:
         """
         
         quantification_type = None
-        quantification_text = ''
+        quantification_value = ''
         
-        def __init__(self, quantification_type, quantification_text):
-            """
-            Constructor
-            """
+        # def __init__(self, quantification_type, quantification_value):
+        #     """
+        #     Constructor
+        #     """
+        #     self.quantification_type = quantification_type
+        #     self.quantification_value = quantification_value
+        
+        def get_type(self):
+            return self.quantification_type
+
+        def get_value(self):
+            return self.quantification_value
+        
+        def set_quantification_type(self, quantification_type):
             self.quantification_type = quantification_type
-            self.quantification_text = quantification_text
-        
+
+        def set_quantification_value(self, quantification_value):
+            self.quantification_value = quantification_value
+
 
     class RuleRange:
         """
