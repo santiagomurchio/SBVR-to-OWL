@@ -44,32 +44,30 @@ class SBVRSpecification:
         sbvr_term.set_concept_type(term.find('sbvr-term-concept-type').text)
         sbvr_term.set_synonym(term.find('sbvr-term-synonym').text)
         
-        sbvr_term.set_necessity(self.parse_sbvr_necessity(term))
-        
+        sbvr_term.set_necessity(self.parse_sbvr_rule(term.find('sbvr-term-necessity')))
+        sbvr_term.set_definition(self.parse_sbvr_rule(term.find('sbvr-term-definition')))
         return sbvr_term
 
-    def parse_sbvr_necessity(self, term):
+    def parse_sbvr_rule(self, xml_rule):
         """
-        Creates a rule from the necessity condition of the given term.
+        Creates a rule from the given xml rule condition.
         """
-        xml_necessity = term.find('sbvr-term-necessity')
-
-        if xml_necessity == None or len(list(xml_necessity)) == 0:
+        if xml_rule == None or len(list(xml_rule)) == 0:
             return None
 
         quantification = Rule.Quantification()
-        quantification.set_quantification_type(xml_necessity.find('sbvr-quantification').get('type'))
-        quantification.set_quantification_value(xml_necessity.find('sbvr-quantification').text)
+        quantification.set_quantification_type(xml_rule.find('sbvr-quantification').get('type'))
+        quantification.set_quantification_value(xml_rule.find('sbvr-quantification').text)
 
-        necessity_range = self.parse_sbvr_necessity_range(xml_necessity)
+        rule_range = self.parse_sbvr_rule_range(xml_rule)
 
-        necessity = Rule()
-        necessity.set_verb(xml_necessity.find('sbvr-verb').text)
-        necessity.set_quantification(quantification)
-        necessity.set_rule_range(necessity_range)
-        return necessity
+        rule = Rule()
+        rule.set_verb(xml_rule.find('sbvr-verb').text)
+        rule.set_quantification(quantification)
+        rule.set_rule_range(rule_range)
+        return rule
        
-    def parse_sbvr_necessity_range(self, term):
+    def parse_sbvr_rule_range(self, term):
         """
         Parses and returns the range part of a necessity condition.
         """

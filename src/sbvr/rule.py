@@ -90,6 +90,7 @@ class Rule:
             """
             self._range_noun_concept = None
             self._disjunction = None
+            self._conjunction = None
 
         def get_range(self):
             """

@@ -137,23 +137,20 @@ class SBVRSpecificationTest(unittest.TestCase):
          self.assertTrue('Miel' in necessity_range.get_range())
          self.assertTrue('AlimentoOrigenVegetal' in necessity_range.get_range())
 
-    def test_from_xml_term_with_disjunction_necessity(self):
+    def test_from_xml_term_with_single_term_definition(self):
         xml = '''<?xml version="1.0"?> 
                  <sbvr-specification>
                    <sbvr-term>
                        <sbvr-term-name>RegimenAlimentario</sbvr-term-name>
-                       <sbvr-term-definition></sbvr-term-definition>
+                       <sbvr-term-definition>
+                         <sbvr-verb>permite consumo de</sbvr-verb>
+                         <sbvr-quantification type="existential"></sbvr-quantification>
+	                 <sbvr-concept>Miel</sbvr-concept>
+                       </sbvr-term-definition>
                        <sbvr-term-general-concept></sbvr-term-general-concept>
                        <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
                        <sbvr-term-synonym>Dieta</sbvr-term-synonym>
-                       <sbvr-term-necessity>
-                         <sbvr-verb>permite consumo de</sbvr-verb>
-                         <sbvr-quantification type="at-least-N">1</sbvr-quantification>
-                         <sbvr-disjunction>
-                           <sbvr-concept>Miel</sbvr-concept>
-	                   <sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
-                         </sbvr-disjunction>
-                       </sbvr-term-necessity>
+                       <sbvr-term-necessity></sbvr-term-necessity>
                    </sbvr-term>
                  </sbvr-specification>'''
 
@@ -165,24 +162,115 @@ class SBVRSpecificationTest(unittest.TestCase):
 
         term = sbvr_specification.get_terms()[0]
         self.assertEquals('RegimenAlimentario'.lower(), term.get_name().lower())
-        self.assertEquals(None, term.get_definition())
+        self.assertEquals(None, term.get_necessity())
         self.assertEquals(None, term.get_general_concept())
         self.assertEquals('general concept', term.get_concept_type().lower())
         self.assertEquals('Dieta'.lower(), term.get_synonym().lower())
 
-        necessity = term.get_necessity()
-        self.assertEquals('permite consumo de', necessity.get_verb().lower())
+        definition = term.get_definition()
+        self.assertEquals('permite consumo de', definition.get_verb().lower())
         
-        quantification = necessity.get_quantification()
-        self.assertEquals('at-least-N'.lower(), quantification.get_type().lower())
-        self.assertEquals('1', quantification.get_value().lower())
+        quantification = definition.get_quantification()
+        self.assertEquals('Existential'.lower(), quantification.get_type().lower())
+        self.assertEquals(None, quantification.get_value())
         
-        necessity_range = necessity.get_rule_range()
-        self.assertTrue(necessity_range.is_disjunction())
-        self.assert_list_len(2, necessity_range.get_range())
-        self.assertTrue('Miel' in necessity_range.get_range())
-        self.assertTrue('AlimentoOrigenVegetal' in necessity_range.get_range())
+        definition_range = definition.get_rule_range()
+        self.assertTrue(definition_range.is_noun_concept())
+        self.assertEquals('Miel', definition_range.get_range())
+
         
+    def test_from_xml_term_with_conjunction_term_definition(self):
+        xml = '''<?xml version="1.0"?> 
+                 <sbvr-specification>
+                   <sbvr-term>
+                       <sbvr-term-name>RegimenAlimentario</sbvr-term-name>
+                       <sbvr-term-definition>
+                         <sbvr-verb>permite consumo de</sbvr-verb>
+                         <sbvr-quantification type="existential"></sbvr-quantification>
+                         <sbvr-conjunction>
+                           <sbvr-concept>Miel</sbvr-concept>
+	                   <sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+                         </sbvr-conjunction>
+                       </sbvr-term-definition>
+                       <sbvr-term-general-concept></sbvr-term-general-concept>
+                       <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+                       <sbvr-term-synonym>Dieta</sbvr-term-synonym>
+                       <sbvr-term-necessity></sbvr-term-necessity>
+                   </sbvr-term>
+                 </sbvr-specification>'''
+
+        root = ET.fromstring(xml)
+        sbvr_specification = SBVRSpecification()
+        sbvr_specification.from_xml(root)
+
+        self.assert_list_len(1, sbvr_specification.get_terms())
+
+        term = sbvr_specification.get_terms()[0]
+        self.assertEquals('RegimenAlimentario'.lower(), term.get_name().lower())
+        self.assertEquals(None, term.get_necessity())
+        self.assertEquals(None, term.get_general_concept())
+        self.assertEquals('general concept', term.get_concept_type().lower())
+        self.assertEquals('Dieta'.lower(), term.get_synonym().lower())
+
+        definition = term.get_definition()
+        self.assertEquals('permite consumo de', definition.get_verb().lower())
+        
+        quantification = definition.get_quantification()
+        self.assertEquals('Existential'.lower(), quantification.get_type().lower())
+        self.assertEquals(None, quantification.get_value())
+        
+        definition_range = definition.get_rule_range()
+        self.assertTrue(definition_range.is_conjunction())
+        self.assert_list_len(2, definition_range.get_range())
+        self.assertTrue('AlimentoOrigenVegetal' in definition_range.get_range())
+        self.assertTrue('Miel' in definition_range.get_range())
+
+    def test_from_xml_term_with_disjunction_term_definition(self):
+        xml = '''<?xml version="1.0"?> 
+                 <sbvr-specification>
+                   <sbvr-term>
+                       <sbvr-term-name>RegimenAlimentario</sbvr-term-name>
+                       <sbvr-term-definition>
+                         <sbvr-verb>permite consumo de</sbvr-verb>
+                         <sbvr-quantification type="existential"></sbvr-quantification>
+                         <sbvr-disjunction>
+                           <sbvr-concept>Miel</sbvr-concept>
+	                   <sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+                         </sbvr-disjunction>
+                       </sbvr-term-definition>
+                       <sbvr-term-general-concept></sbvr-term-general-concept>
+                       <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+                       <sbvr-term-synonym>Dieta</sbvr-term-synonym>
+                       <sbvr-term-necessity></sbvr-term-necessity>
+                   </sbvr-term>
+                 </sbvr-specification>'''
+
+        root = ET.fromstring(xml)
+        sbvr_specification = SBVRSpecification()
+        sbvr_specification.from_xml(root)
+
+        self.assert_list_len(1, sbvr_specification.get_terms())
+
+        term = sbvr_specification.get_terms()[0]
+        self.assertEquals('RegimenAlimentario'.lower(), term.get_name().lower())
+        self.assertEquals(None, term.get_necessity())
+        self.assertEquals(None, term.get_general_concept())
+        self.assertEquals('general concept', term.get_concept_type().lower())
+        self.assertEquals('Dieta'.lower(), term.get_synonym().lower())
+
+        definition = term.get_definition()
+        self.assertEquals('permite consumo de', definition.get_verb().lower())
+        
+        quantification = definition.get_quantification()
+        self.assertEquals('Existential'.lower(), quantification.get_type().lower())
+        self.assertEquals(None, quantification.get_value())
+        
+        definition_range = definition.get_rule_range()
+        self.assertTrue(definition_range.is_disjunction())
+        self.assert_list_len(2, definition_range.get_range())
+        self.assertTrue('AlimentoOrigenVegetal' in definition_range.get_range())
+        self.assertTrue('Miel' in definition_range.get_range())
+
         
 
     # def test_parse_rules_no_quantification(self):
