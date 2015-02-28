@@ -53,3 +53,14 @@ class SBVRTerm:
     def get_necessity(self):
         return self._necessity
 
+    def is_concept_type(self):
+        """
+        Returns true if this term is a concept type term.
+        """
+        return 'general concept' == self._concept_type
+
+    def is_verb_concept(self):
+        """ 
+        Returns true if this term is a verb concept type.
+        """
+        return self._concept_type != None and self._concept_type.find('verb') != -1

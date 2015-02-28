@@ -1,6 +1,7 @@
 from rule import *
 from fact import *
 from sbvrterm import *
+from binary_verb_concept_rule import *
 import xml.etree.ElementTree as ET
 
 class SBVRSpecification:
@@ -43,9 +44,14 @@ class SBVRSpecification:
         sbvr_term.set_general_concept(term.find('sbvr-term-general-concept').text)
         sbvr_term.set_concept_type(term.find('sbvr-term-concept-type').text)
         sbvr_term.set_synonym(term.find('sbvr-term-synonym').text)
-        
-        sbvr_term.set_necessity(self.parse_sbvr_rule(term.find('sbvr-term-necessity')))
         sbvr_term.set_definition(self.parse_sbvr_rule(term.find('sbvr-term-definition')))
+
+        if sbvr_term.is_concept_type():
+            sbvr_term.set_necessity(self.parse_sbvr_rule(term.find('sbvr-term-necessity')))
+
+        if sbvr_term.is_verb_concept():
+            sbvr_term.set_necessity(self.parse_sbvr_verb_necessity(term.find('sbvr-term-necessity')))
+
         return sbvr_term
 
     def parse_sbvr_rule(self, xml_rule):
@@ -97,3 +103,27 @@ class SBVRSpecification:
         rule_range = Rule.RuleRange()
         rule_range.set_noun_concept(term.find('sbvr-concept').text)
         return rule_range
+
+    def parse_sbvr_verb_necessity(self, xml_necessity):
+        """
+        Parses the necessity for a verb concept type.
+        """
+        position_to_role = dict()
+        xml_roles = xml_necessity.findall('sbvr-role')
+        
+        # first build the map to know the right position
+        positions = []
+        for xml_role in xml_roles:
+            position = int(xml_role.get('position'))
+            positions.append(position)
+            position_to_role[position] = xml_role.text
+        
+
+        # iterate over the map using the correct position
+        binary_verb_concept_rule = BinaryVerbConceptRule()
+        for position in sorted(positions):
+            binary_verb_concept_rule.add_role(position_to_role[position])
+
+        return binary_verb_concept_rule
+            
+        
