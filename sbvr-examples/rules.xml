@@ -215,4 +215,26 @@
     <sbvr-term-synonym>Vegetarianismo</sbvr-term-synonym>
     <sbvr-term-necessity></sbvr-term-necessity>
   </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>permite_consumo_de</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>binary verb concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>permite_comer</sbvr-term-synonym>
+    <sbvr-term-necessity>
+      <sbvr-role position="1">RegimenAlimentario</sbvr-role>
+      <sbvr-role position="2">Alimento</sbvr-role>
+    </sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>permite_comer</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>binary verb concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>permite_consumo_de</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
 </sbvr-specification>
