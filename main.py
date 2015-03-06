@@ -1,5 +1,5 @@
-from src.sbvrspecification import SBVRSpecification
-from src.sbvrtoowl import SBVRToOWL
+from src.sbvr.sbvrspecification import SBVRSpecification
+from src.mapping.sbvrtoowl import SBVRToOWL
 
 def print_help_Message():
     """

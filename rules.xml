@@ -1,31 +1,241 @@
 <?xml version="1.0"?>
 <sbvr-specification>
-  <sbvr-facts>
 
-  </sbvr-facts>
+  <sbvr-term>
+    <sbvr-term-name>Alimento</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-  <sbvr-rules>
+  <sbvr-term>
+    <sbvr-term-name>AlimentoCrudo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>Alimento</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <domain-noun-concept>AlimentoCrudo</domain-noun-concept>
-      <verb>es un</verb>
-      <range-noun-concept>Alimento</range-noun-concept>
-    </sbvr-rule>
+  <sbvr-term>
+    <sbvr-term-name>AlimentoOrigenAnimal</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>Alimento</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <domain-noun-concept>AlimentoOrigenAnimal</domain-noun-concept>
-      <verb>es un</verb>
-      <range-noun-concept>Alimento</range-noun-concept>
-    </sbvr-rule>
+  <sbvr-term>
+    <sbvr-term-name>AlimentoOrigenVegetal</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>Alimento</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-    <sbvr-rule>
-      <quantification type="universal">Each</quantification>
-      <domain-noun-concept>ApiVegetarianismo</domain-noun-concept>
-      <verb>solo permite consumo de</verb>
-      <range-noun-concept>Miel</range-noun-concept>
-    </sbvr-rule>
+  <sbvr-term>
+    <sbvr-term-name>Carne</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
 
-  </sbvr-rules>
+  <sbvr-term>
+    <sbvr-term-name>Huevo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Lacteo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Miel</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>AlimentoOrigenAnimal</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>RegimenAlimentario</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Dieta</sbvr-term-synonym>
+    <sbvr-term-necessity>
+      <sbvr-verb>permite_consumo_de</sbvr-verb>
+      <sbvr-quantification type="at-least-N">1</sbvr-quantification>
+      <sbvr-concept>Alimento</sbvr-concept>
+    </sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Dieta</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>RegimenAlimentario</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>ApiVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite_consumo_de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Miel</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Crudivarismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite_consumo_de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-conjunction>
+	<sbvr-concept>AlimentoCrudo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-conjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Crudiveganismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Crudiveganismo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Crudivarismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>LactoVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite_consumo_de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Lacteo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>OvoLactoVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite_consumo_de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Huevo</sbvr-concept>
+	<sbvr-concept>Lacteo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>OvoVegetarianismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite_consumo_de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-disjunction>
+	<sbvr-concept>Huevo</sbvr-concept>
+	<sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+      </sbvr-disjunction>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Veganismo</sbvr-term-name>
+    <sbvr-term-definition>
+      <sbvr-verb>permite_consumo_de</sbvr-verb>
+      <sbvr-quantification type="existential"></sbvr-quantification>
+      <sbvr-concept>AlimentoOrigenVegetal</sbvr-concept>
+    </sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym></sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Vegetarianismo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Vegetarismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>Vegetarismo</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept>RegimenAlimentario</sbvr-term-general-concept>
+    <sbvr-term-concept-type>general concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>Vegetarianismo</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+
+  <sbvr-term>
+    <sbvr-term-name>permite_consumo_de</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>binary verb concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>permite_comer</sbvr-term-synonym>
+    <sbvr-term-necessity>
+      <sbvr-role position="1">RegimenAlimentario</sbvr-role>
+      <sbvr-role position="2">Alimento</sbvr-role>
+    </sbvr-term-necessity>
+  </sbvr-term>
+
+<!--  
+<sbvr-term>
+    <sbvr-term-name>permite_comer</sbvr-term-name>
+    <sbvr-term-definition></sbvr-term-definition>
+    <sbvr-term-general-concept></sbvr-term-general-concept>
+    <sbvr-term-concept-type>binary verb concept</sbvr-term-concept-type>
+    <sbvr-term-synonym>permite_consumo_de</sbvr-term-synonym>
+    <sbvr-term-necessity></sbvr-term-necessity>
+  </sbvr-term>
+-->
 </sbvr-specification>

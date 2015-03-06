@@ -20,6 +20,12 @@ class SBVRSpecification:
     def get_terms(self):
         return self._terms
 
+    def set_terms(self, terms):
+        """
+        This method should be used only by unit tests.
+        """
+        self._terms = terms
+
     def from_xml_file(self, filename):
         """
         Parses the xml file given as a parameter.
