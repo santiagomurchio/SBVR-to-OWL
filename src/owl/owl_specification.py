@@ -110,7 +110,7 @@ class OWLSpecification:
         </owl:Class>
         '''
 
-        OWL_SUB_CLASS_OF_TEMPLATE = '</rdfs:subClassOf rdf:resource="{prefix}#{parent}"/>'
+        OWL_SUB_CLASS_OF_TEMPLATE = '<rdfs:subClassOf rdf:resource="{prefix}#{parent}"/>'
 
         OWL_EQUIVALENCE_CLASS_TEMPLATE = """
         <owl:equivalentClass>
