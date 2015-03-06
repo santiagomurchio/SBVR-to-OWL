@@ -1,3 +1,5 @@
+from src.utils.listutils import *
+
 class Rule:
     """
     This class represents an instance of a SBVR Rule.
@@ -20,7 +22,7 @@ class Rule:
 
     def is_sub_class_of_rule(self):
         """ 
-        Returns true if this rule is a statement of a subclass relationship.
+        Returns True if this rule is a statement of a subclass relationship.
         """
         return self.verb.lower() == self.SUB_CLASS_OF_VERB.lower()
 
@@ -45,6 +47,27 @@ class Rule:
     def set_rule_range(self, rule_range):
         self.rule_range = rule_range
 
+    def __eq__(self, another_rule):
+        if self.verb != another_rule.verb:
+            return False
+
+        another_quantification = another_rule.quantification
+        if self.quantification != None:
+            if another_quantification == None:
+                return False
+            else:
+                if self.quantification != another_quantification:
+                    return False
+
+        another_rule_range = another_rule.rule_range
+        if self.rule_range != None:
+            if another_rule_range == None:
+                return False
+            else:
+                if self.rule_range != another_rule_range:
+                    return False
+
+        return True
 
     class Quantification:
         """ 
@@ -74,6 +97,27 @@ class Rule:
         def set_quantification_value(self, quantification_value):
             self.quantification_value = quantification_value
 
+        def __eq__(self, another_quantification):
+            if another_quantification == None:
+                return False
+
+            if self._quantification_type != None:
+                if another_quantification._quantification_type == None:
+                    return False
+                else:
+                    if self._quantification_type != another_quantification._quantification_type:
+                        return False
+
+            if self._quantification_text != None:
+                if another_quantification._quantification_text == None:
+                    return False
+                else:
+                    if self._quantification_text != another_quantification._quantification_text:
+                        return False
+
+            return True
+        
+
 
     class RuleRange:
         """
@@ -92,6 +136,29 @@ class Rule:
             self._disjunction = None
             self._conjunction = None
 
+        def __eq__(self, another_range):
+            
+            if self.is_disjunction():
+                if another_range.is_disjunction:
+                    return ListUtils.same_elements_ignore_order(
+                        self._disjunction, another_range._disjunction)
+                else:
+                    return False
+
+            if self.is_conjunction():
+                if another_range.is_conjunction:
+                    return ListUtils.same_elements_ignore_order(
+                        self._conjunction, another_range._conjunction)
+                else:
+                    return False
+
+            if self.is_noun_concept():
+                if another_range.is_noun_concept():
+                    return self._range_noun_concept == another_range._range_noun_concept
+                else:
+                    return False
+        
+
         def get_range(self):
             """
             Returns the range of the rule, which may be a single string, 
@@ -108,21 +175,21 @@ class Rule:
 
         def is_disjunction(self):
             """
-            Returns true if this RuleRange is a disjunction of noun concepts.
+            Returns True if this RuleRange is a disjunction of noun concepts.
             """
             return self._disjunction != None
 
 
         def is_conjunction(self):
             """
-            Returns true if this RuleRange is a conjunction of noun concepts.
+            Returns True if this RuleRange is a conjunction of noun concepts.
             """
             return self._conjunction != None
 
 
         def is_noun_concept(self):
             """
-            Returns true if this RuleRange is a single noun concept.
+            Returns True if this RuleRange is a single noun concept.
             """
             return self._range_noun_concept != None
 
