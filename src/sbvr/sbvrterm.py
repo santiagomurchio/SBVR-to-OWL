@@ -64,3 +64,9 @@ class SBVRTerm:
         Returns true if this term is a verb concept type.
         """
         return self._concept_type != None and self._concept_type.find('verb') != -1
+
+    def is_verb_synonym(self):
+        return self.is_verb_concept() and  \
+            self.get_necessity() != None and \
+            len(self.get_necessity().get_roles()) == 0 and \
+            self.get_synonym() != None

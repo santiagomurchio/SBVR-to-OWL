@@ -86,7 +86,7 @@ class OWLSpecification:
         owl_content = ''
 
         for owl_object_property in self._object_properties:
-            owl_content += '\n' + owl_object_property.get_owl_object_property_definition(self._prefix)
+            owl_content += '\n' + owl_object_property.to_owl(self._prefix)
 
         for owl_class in self._classes:
             owl_content  += '\n' + owl_class.to_owl(self._prefix)
@@ -263,9 +263,17 @@ class OWLSpecification:
                                         <rdfs:domain rdf:resource="{prefix}#{op_domain}"/>
                                       </owl:ObjectProperty>'''
 
+        OWL_OBJECT_PROPERTY_EQUIVALENCE_TEMPLATE = '''
+        <owl:ObjectProperty rdf:about="{prefix}#{property_name}">
+            <owl:equivalentProperty rdf:resource="{prefix}#{equivalent_property_name}"/>
+        </owl:ObjectProperty>
+        '''
+
         _name = None
         _domain = None
         _range = None
+
+        _equivalent_to = None
 
         def __init__(self, op_name, op_domain, op_range):
             """
@@ -274,14 +282,27 @@ class OWLSpecification:
             self._name = op_name
             self._domain = op_domain
             self._range = op_range
+            self._equivalent_to = None
+        
+        def set_equivalent_to(self, equivalent_to):
+            self._domain = None
+            self._range = None
+            self._equivalent_to = equivalent_to
+            
 
-
-        def get_owl_object_property_definition(self, prefix):
+        def to_owl(self, prefix):
             """
             Gets the owl (xml) format class definition of this object property.
             """
-            return self.OWL_OBJECT_PROPERTY_TEMPLATE.format(prefix = prefix, 
-                                                            op_name = self._name,
-                                                            op_domain = self._domain,
-                                                            op_range = self._range)
+            if self._equivalent_to != None:
+                return self.OWL_OBJECT_PROPERTY_EQUIVALENCE_TEMPLATE.format(
+                    prefix = prefix,
+                    property_name = self._name,
+                    equivalent_property_name = self._equivalent_to)
+            else:
+                return self.OWL_OBJECT_PROPERTY_TEMPLATE.format(
+                    prefix = prefix, 
+                    op_name = self._name,
+                    op_domain = self._domain,
+                    op_range = self._range)
 

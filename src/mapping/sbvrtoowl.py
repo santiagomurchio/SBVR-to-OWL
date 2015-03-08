@@ -68,10 +68,15 @@ class SBVRToOWL(OWLFile):
         return owl_class
 
     def build_owl_object_property(self, sbvr_term):
-        owl_object_property = OWLSpecification.OWLObjectPropertySpecification(
-            sbvr_term.get_name(),
-            sbvr_term.get_necessity().get_roles()[0],
-            sbvr_term.get_necessity().get_roles()[1])
+        if sbvr_term.is_verb_synonym():
+            owl_object_property = OWLSpecification.OWLObjectPropertySpecification(
+                sbvr_term.get_name(), None, None)
+            owl_object_property.set_equivalent_to(sbvr_term.get_synonym())
+        else:
+            owl_object_property = OWLSpecification.OWLObjectPropertySpecification(
+                sbvr_term.get_name(),
+                sbvr_term.get_necessity().get_roles()[0],
+                sbvr_term.get_necessity().get_roles()[1])
         return owl_object_property
 
     def write_ontology_to_owl_file(self):
