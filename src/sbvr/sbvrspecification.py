@@ -1,5 +1,6 @@
-from rule import *
 from fact import *
+from rule import *
+from logicaloperation import *
 from sbvrterm import *
 from binary_verb_concept_rule import *
 import xml.etree.ElementTree as ET
@@ -53,12 +54,50 @@ class SBVRSpecification:
         sbvr_term.set_definition(self.parse_sbvr_rule(term.find('sbvr-term-definition')))
 
         if sbvr_term.is_concept_type():
-            sbvr_term.set_necessity(self.parse_sbvr_rule(term.find('sbvr-term-necessity')))
+            #sbvr_term.set_necessity(self.parse_sbvr_rule(term.find('sbvr-term-necessity')))
+            sbvr_term.set_necessity(self.parse_necessity(term.find('sbvr-term-necessity')))
 
         if sbvr_term.is_verb_concept():
             sbvr_term.set_necessity(self.parse_sbvr_verb_necessity(term.find('sbvr-term-necessity')))
 
         return sbvr_term
+
+    def parse_necessity(self, necessity_as_xml):
+        """
+        Tries to parse a necessity, which can be a single logic operator or a conjunction, or disyunction.
+        """
+        if necessity_as_xml == None or len(list(necessity_as_xml)) == 0:
+            return None
+        
+        # first try conjunction
+        conjunction = necessity_as_xml.find('sbvr-conjunction')
+        if conjunction is not None:
+            logical_operation = LogicalOperation('conjunction')
+            logical_operation.set_logical_operators(self.parse_logical_operators(conjunction))
+            return logical_operation
+        
+        # if not, try disjunction
+        disjunction = necessity_as_xml.find('sbvr-disjunction')
+        if disjunction is not None:
+            logical_operation = LogicalOperation('disjunction')
+            logical_operation.set_logical_operators(self.parse_logical_operators(disjunction))
+            return logical_operation
+
+        # it must be a single concept
+        logical_operation = LogicalOperation('single-clause')
+        logical_operation.set_logical_operators(self.parse_logical_operators(necessity_as_xml))
+        return logical_operation
+
+    def parse_logical_operators(self, logical_operation):
+        """
+        Parse the operators_as_xml found on a logical operation object
+        """
+        operators = []
+        operators_as_xml = logical_operation.findall('sbvr-logical-operator')
+        for operator in operators_as_xml:
+            operators.append(self.parse_sbvr_rule(operator))
+        return operators 
+
 
     def parse_sbvr_rule(self, xml_rule):
         """

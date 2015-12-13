@@ -1,6 +1,7 @@
 from src.sbvr.rule import *
 from src.sbvr.fact import *
 from owl_configuration import *
+from src.sbvr.logicaloperation import *
 
 class OWLSpecification:
     """
@@ -141,17 +142,48 @@ class OWLSpecification:
         <owl:equivalentClass rdf:resource="{prefix}#{classname}"/>
         """
 
-        OWL_NECESARY_CONDITION_TEMPLATE = """
+        OWL_NECESSARY_CONDITION_TEMPLATE = """
         <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="{prefix}#{property_name}"/>
-                <owl:onClass rdf:resource="{prefix}#{classname}"/>
-                <owl:{quantification_cardinality} rdf:datatype="&xsd;nonNegativeInteger">
-                {cardinality_value}
-                </owl:{quantification_cardinality}>
-            </owl:Restriction>
+            <owl:Class>
+                {restriction}
+            </owl:Class>
         </rdfs:subClassOf>
         """
+
+        OWL_DISJUNCTION_NECESSARY_CONDITION_TEMPLATE = """
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    {restrictions}
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        """
+
+        OWL_CONJUNCTION_NECESSARY_CONDITION_TEMPLATE = """
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    {restrictions}
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        """
+        
+        OWL_RESTRICTION_TEMPLATE = """
+        <owl:Restriction>
+            {restriction_rule}
+        </owl:Restriction>
+        """
+        
+        OWL_RESTRICTION_RULE_TEMPLATE = """
+        <owl:onProperty rdf:resource="{prefix}#{property_name}"/>
+        <owl:onClass rdf:resource="{prefix}#{classname}"/>
+        <owl:{quantification_cardinality} rdf:datatype="&xsd;nonNegativeInteger">
+            {cardinality_value}
+        </owl:{quantification_cardinality}>
+        """
+
         _classname = None
         _synonym_equivalences = None
         _equivalence_rules = None
@@ -191,15 +223,52 @@ class OWLSpecification:
                 expressions.append(self.build_sub_class_of_expression(prefix, expression))
             return '\n'.join(expressions)
 
-        def build_sub_class_of_expression(self, prefix, expression):
+        def build_sub_class_of_expression(self, prefix, logical_operation):
+            if logical_operation.is_single_clause():
+                expression = logical_operation.get_logical_operators()[0]
+
+                quantification_cardinality = self.get_quantification_cardinality(expression.get_quantification())
+                quantification_value = expression.get_quantification().get_value() \
+                    if expression.get_quantification().get_value() is not None else ''
+                return self.OWL_NECESSARY_CONDITION_TEMPLATE.format(
+                    prefix = prefix,
+                    classname = expression.get_rule_range().get_range(),
+                    property_name = expression.get_verb(),
+                    quantification_cardinality = quantification_cardinality,
+                    cardinality_value = quantification_value)
+
+            else:
+                return self.build_compound_sub_class_expression(prefix, logical_operation)
+
+
+        def build_compound_sub_class_expression(self, prefix, logical_operation):
+            restrictions = []
+            for rule in logical_operation.get_logical_operators():
+                restrictions.append(self.build_restriction_expression(prefix, rule))
+
+            if logical_operation.is_conjunction():
+                return self.OWL_CONJUNCTION_NECESSARY_CONDITION_TEMPLATE.format(
+                    prefix = prefix,
+                    restrictions = "\n".join(restrictions))
+            else:
+                return self.OWL_DISJUNCTION_NECESSARY_CONDITION_TEMPLATE.format(
+                    prefix = prefix,
+                    restrictions = "\n".join(restrictions))
+
+
+        def build_restriction_expression(self, prefix, expression):
             quantification_cardinality = self.get_quantification_cardinality(expression.get_quantification())
-            quantification_value = expression.get_quantification().get_value() if expression.get_quantification().get_value() != None else ''
-            return self.OWL_NECESARY_CONDITION_TEMPLATE.format(
+            quantification_value = expression.get_quantification().get_value() \
+                if expression.get_quantification().get_value() is not None else ''
+            restriction_rule =  self.OWL_RESTRICTION_RULE_TEMPLATE.format(
                 prefix = prefix,
                 classname = expression.get_rule_range().get_range(),
                 property_name = expression.get_verb(),
                 quantification_cardinality = quantification_cardinality,
                 cardinality_value = quantification_value)
+            return self.OWL_RESTRICTION_TEMPLATE.format(
+                restriction_rule = restriction_rule
+            )
 
         def get_quantification_cardinality(self, quantification):
             if quantification.get_type() == 'at-least-N':
