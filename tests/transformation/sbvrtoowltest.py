@@ -3,6 +3,8 @@ from src.sbvr.sbvrspecification import *
 from src.mapping.sbvrtoowl import *
 from src.sbvr.fact import *
 import xml.etree.ElementTree as ET
+from src.sbvr.logicaloperation import *
+
 
 
 class SBVRToOWLTest(unittest.TestCase):
@@ -92,7 +94,48 @@ class SBVRToOWLTest(unittest.TestCase):
         
 
     def test_transform_with_necessity(self):
-        necessity = self.SBVRRuleBuilder().build()
+        logical_operator_1 = self.SBVRRuleBuilder().build()
+        operators = [logical_operator_1]
+        necessity = self.LogicalOperationBuilder().\
+                        set_type('single-clause').\
+                        set_logical_operators(operators).\
+                        build()
+        
+        term = self.SBVRTermBuilder().\
+               set_name('RegimenAlimentario').\
+               set_general_concept('Alimento').\
+               set_necessity(necessity).\
+               build()
+        sbvr_specification = SBVRSpecification()
+        sbvr_specification.set_terms([term])
+        transformer = SBVRToOWL(sbvr_specification, 'output.test', '')
+        transformer.transform()
+        owl_specification = transformer.get_owl_specification()
+        
+        self.assert_set_len(1, owl_specification.get_classes())
+        self.assert_set_len(0, owl_specification.get_object_properties())        
+
+        owl_class = owl_specification.get_classes()[0]
+        self.assertEquals(term.get_name(), owl_class.get_classname())
+        self.assertEquals([], owl_class.get_synonym_equivalences())
+        self.assertEquals([], owl_class.get_equivalence_rules())
+        self.assertEquals(['Alimento'], owl_class.get_sub_class_of())
+
+        self.assert_set_len(1, owl_class.get_sub_class_of_expressions())
+        sub_class_of_expression = owl_class.get_sub_class_of_expressions()[0]
+        self.assertEquals(necessity, sub_class_of_expression)
+
+    def test_transform_with_conjunction_necessity(self):
+        logical_operator_1 = self.SBVRRuleBuilder().build()
+        
+        logical_operator_2 = self.SBVRRuleBuilder().set_quantification(\
+                                self.SBVRQuantificationBuilder().\
+                                set_quantification_type('at-most-N').\
+                                build()).\
+                                build()
+        operators = [logical_operator_1, logical_operator_2]
+        necessity = self.LogicalOperationBuilder().set_logical_operators(operators).build()
+
         term = self.SBVRTermBuilder().\
                set_name('RegimenAlimentario').\
                set_general_concept('Alimento').\
@@ -223,7 +266,7 @@ class SBVRToOWLTest(unittest.TestCase):
             if self._conjunction != None:
                 rule_range.set_conjunction(self.conjunction)
 
-            return self
+            return rule_range
 
 
     class SBVRRuleBuilder:
@@ -257,7 +300,33 @@ class SBVRToOWLTest(unittest.TestCase):
             rule.set_verb(self._verb)
             rule.set_rule_range(self._rule_range)
             return rule
+    
+    class LogicalOperationBuilder:
+        """
+        Builder for sbvr logical operations (conjunction, disjunction or single clauses).
+        """
+        _type = None
+        _logical_operators = None
+
+        def __init__(self):
+            self._type = 'single-clause'
+            self._logical_operators = []
+            self._logical_operators.append(SBVRToOWLTest.SBVRRuleBuilder().build())
+            
+        def set_type(self, logical_operation_type):
+            self._type = logical_operation_type
+            return self
         
+        def set_logical_operators(self, logical_operators):
+            self._logical_operators = logical_operators
+            return self
+            
+        def build(self):
+            logical_operation = LogicalOperation(self._type)
+            logical_operation.set_logical_operators(self._logical_operators)
+            return logical_operation
+    
+    
     # def test_extract_owl_classes_and_sub_classes_with_classes(self):
     #     xml = '''<?xml version="1.0"?> 
     #                <sbvr-specification>

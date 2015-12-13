@@ -43,6 +43,7 @@ class SBVRToOWL(OWLFile):
         """
         self._owl_specification = OWLSpecification(self._prefix)
         for sbvr_term in self._sbvr_specification.get_terms():
+            print("Transformation of: " + sbvr_term.get_name())
             if sbvr_term.is_concept_type():
                 owl_class = self.build_owl_class_specification(sbvr_term)
                 self._owl_specification.add_class_specification(owl_class)
@@ -50,19 +51,20 @@ class SBVRToOWL(OWLFile):
                 owl_object_property = self.build_owl_object_property(sbvr_term)
                 self._owl_specification.add_object_property(owl_object_property)
 
+
     def build_owl_class_specification(self, sbvr_term):
         owl_class = OWLSpecification.OWLClassSpecification(sbvr_term.get_name())
 
-        if sbvr_term.get_synonym() != None:
+        if sbvr_term.get_synonym() is not None:
             owl_class.add_synonym_equivalence(sbvr_term.get_synonym())
 
-        if sbvr_term.get_necessity() != None:
+        if sbvr_term.get_necessity() is not None:
             owl_class.add_parent_class_expression(sbvr_term.get_necessity())
 
-        if sbvr_term.get_general_concept() != None:
+        if sbvr_term.get_general_concept() is not None:
             owl_class.add_parent_class(sbvr_term.get_general_concept())
 
-        if sbvr_term.get_definition() != None:
+        if sbvr_term.get_definition() is not None:
             owl_class.add_equivalence_rule(sbvr_term.get_definition())
 
         return owl_class
@@ -107,17 +109,16 @@ class SBVRToOWL(OWLFile):
         return file_content
 
 
-    def extract_owl_classes_and_sub_classes(self):
-        """
-        Handles the transformation of the General Concepts, which are 'noun concepts that
-        classifies things on the basis of their common properties'.
-        """
-        # A set so we can avoid duplicates
-        owl_classes = set()
-        for rule in self._sbvr_specification.rules:
-            owl_classes.add(OWLClass(rule))
-        return owl_classes
-
+#     def extract_owl_classes_and_sub_classes(self):
+#         """
+#         Handles the transformation of the General Concepts, which are 'noun concepts that
+#         classifies things on the basis of their common properties'.
+#         """
+#         # A set so we can avoid duplicates
+#         owl_classes = set()
+#         for rule in self._sbvr_specification.rules:
+#             owl_classes.add(OWLClass(rule))
+#         return owl_classes
 
     def extract_owl_object_properties(self):
         """ 
