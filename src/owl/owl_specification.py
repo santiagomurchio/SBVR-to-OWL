@@ -89,22 +89,12 @@ class OWLSpecification:
         </owl:equivalentClass>
         """
 
-        OWL_CONJUNCTION_EQUIVALENCE_CLASS_TEMPLATE = """
+        OWL_COMPOUND_EQUIVALENCE_CLASS_TEMPLATE = """
         <owl:equivalentClass>
             <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
+                <owl:{equivalence_type} rdf:parseType="Collection">
                     {restrictions}
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        """
-
-        OWL_DISJUNCTION_EQUIVALENCE_CLASS_TEMPLATE = """
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    {restrictions}
-                </owl:intersectionOf>
+                </owl:{equivalence_type}>
             </owl:Class>
         </owl:equivalentClass>
         """
@@ -312,12 +302,9 @@ class OWLSpecification:
             for rule in logical_operation.get_logical_operators():
                 restrictions.append(self.build_equivalence_restriction_expression(prefix, rule))
 
-            if logical_operation.is_conjunction():
-                return self.OWL_CONJUNCTION_EQUIVALENCE_CLASS_TEMPLATE.format(
-                    restrictions = "\n".join(restrictions))
-            else:
-                return self.OWL_DISJUNCTION_NECESSARY_CONDITION_TEMPLATE.format(
-                    restrictions = "\n".join(restrictions))
+            return self.OWL_COMPOUND_EQUIVALENCE_CLASS_TEMPLATE.format(
+                equivalence_type = "intersectionOf" if logical_operation.is_conjunction() else "unionOf",
+                restrictions = "\n".join(restrictions))
 
         def build_equivalence_restriction_expression(self, prefix, equivalence):
             if equivalence.get_rule_range().is_noun_concept():
@@ -331,8 +318,7 @@ class OWLSpecification:
                 property_name = equivalence.get_verb(),
                 all_values_from = all_values_from)
             return self.OWL_RESTRICTION_TEMPLATE.format(
-                restriction_rule = restriction_rule
-            )
+                restriction_rule = restriction_rule)
 
         def build_all_values_from_noun_concept(self, prefix, classname):
             return self.OWL_ALL_VALUES_FROM_SINGLE_CLASS_TEMPLATE.format(
