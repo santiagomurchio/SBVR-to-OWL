@@ -51,35 +51,6 @@ class OWLSpecification:
                 return owl_class_specification
         return None
 
-
-    def add_fact(self, owl_class, fact):
-        """
-        Adds a fact to the class specification. If the class specification does not
-        yet exists, it creates it.
-        """
-        owl_class_specification = self.get_class_specification(owl_class)
-        if owl_class_specification != None:
-            owl_class_specification.add_fact(fact)
-        else:
-            new_owl_class_specification = OWLSpecification.OWLClassSpecification(owl_class)
-            new_owl_class_specification.add_fact(fact)
-            self.add_class_specification(new_owl_class_specification)
-
-
-    def add_rule(self, owl_class, rule):
-        """
-        Adds a rule to the class specification. If the class specification does not
-        yet exists, it creates it.
-        """
-        owl_class_specification = self.get_class_specification(owl_class)
-        if owl_class_specification != None:
-            owl_class_specification.add_rule(rule)
-        else:
-            new_owl_class_specification = OWLSpecification.OWLClassSpecification(owl_class)
-            new_owl_class_specification.add_rule(rule)
-            self.add_class_specification(new_owl_class_specification)
-
-    
     def build_owl_content(self):
         """
         Builds the owl content to write to the file.
@@ -93,14 +64,9 @@ class OWLSpecification:
             owl_content  += '\n' + owl_class.to_owl(self._prefix)
 
         return owl_content
-        
-
 
     class OWLClassSpecification:
         """ 
-        This class is a holder of a single map, where the key is the owl class name, 
-        and the value is a list of facts and rules where that class is involved, as a domain
-        noun concept.
         """
         OWL_SIMPLE_CLASS_TEMPLATE = '<owl:Class rdf:about="{prefix}#{classname}" />'
         OWL_CLASS_TEMPLATE = '''
@@ -121,6 +87,31 @@ class OWLSpecification:
                 {all_values_from}
             </owl:Restriction>
         </owl:equivalentClass>
+        """
+
+        OWL_CONJUNCTION_EQUIVALENCE_CLASS_TEMPLATE = """
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    {restrictions}
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        """
+
+        OWL_DISJUNCTION_EQUIVALENCE_CLASS_TEMPLATE = """
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    {restrictions}
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        """
+
+        OWL_EQUIVALENCE_RESTRICTION_TEMPLATE = """
+        <owl:onProperty rdf:resource="{prefix}#{property_name}"/>
+        {all_values_from}
         """
 
         OWL_ALL_VALUES_FROM_TEMPLATE = """
@@ -236,10 +227,8 @@ class OWLSpecification:
                     property_name = expression.get_verb(),
                     quantification_cardinality = quantification_cardinality,
                     cardinality_value = quantification_value)
-
             else:
                 return self.build_compound_sub_class_expression(prefix, logical_operation)
-
 
         def build_compound_sub_class_expression(self, prefix, logical_operation):
             restrictions = []
@@ -254,7 +243,6 @@ class OWLSpecification:
                 return self.OWL_DISJUNCTION_NECESSARY_CONDITION_TEMPLATE.format(
                     prefix = prefix,
                     restrictions = "\n".join(restrictions))
-
 
         def build_restriction_expression(self, prefix, expression):
             quantification_cardinality = self.get_quantification_cardinality(expression.get_quantification())
@@ -303,23 +291,52 @@ class OWLSpecification:
                     self.build_equivalence_class_expression(prefix, equivalence))
             return '\n'.join(equivalences)
 
-        def build_equivalence_class_expression(self, prefix, equivalence):
+        def build_equivalence_class_expression(self, prefix, logical_operation):
+            if logical_operation.is_single_clause():
+                equivalence = logical_operation.get_logical_operators()[0]
+                if equivalence.get_rule_range().is_noun_concept():
+                    all_values_from = self.build_all_values_from_noun_concept(
+                        prefix, equivalence.get_rule_range().get_range())
+                else:
+                    all_values_from = self.build_all_values_from_collection(
+                        prefix, equivalence)
+                return self.OWL_EQUIVALENCE_CLASS_TEMPLATE.format(
+                    prefix = prefix,
+                    property_name = equivalence.get_verb(),
+                    all_values_from = all_values_from)
+            else:
+                return self.build_compound_equivalence_class_expression(prefix, logical_operation)
+
+        def build_compound_equivalence_class_expression(self, prefix, logical_operation):
+            restrictions = []
+            for rule in logical_operation.get_logical_operators():
+                restrictions.append(self.build_equivalence_restriction_expression(prefix, rule))
+
+            if logical_operation.is_conjunction():
+                return self.OWL_CONJUNCTION_EQUIVALENCE_CLASS_TEMPLATE.format(
+                    restrictions = "\n".join(restrictions))
+            else:
+                return self.OWL_DISJUNCTION_NECESSARY_CONDITION_TEMPLATE.format(
+                    restrictions = "\n".join(restrictions))
+
+        def build_equivalence_restriction_expression(self, prefix, equivalence):
             if equivalence.get_rule_range().is_noun_concept():
                 all_values_from = self.build_all_values_from_noun_concept(
                     prefix, equivalence.get_rule_range().get_range())
             else:
                 all_values_from = self.build_all_values_from_collection(
                     prefix, equivalence)
-            return self.OWL_EQUIVALENCE_CLASS_TEMPLATE.format(
-                prefix = prefix,        
-                property_name = equivalence.get_verb(), 
+            restriction_rule = self.OWL_EQUIVALENCE_RESTRICTION_TEMPLATE.format(
+                prefix = prefix,
+                property_name = equivalence.get_verb(),
                 all_values_from = all_values_from)
-
+            return self.OWL_RESTRICTION_TEMPLATE.format(
+                restriction_rule = restriction_rule
+            )
 
         def build_all_values_from_noun_concept(self, prefix, classname):
             return self.OWL_ALL_VALUES_FROM_SINGLE_CLASS_TEMPLATE.format(
                 prefix = prefix, classname = classname)
-
 
         def build_all_values_from_collection(self, prefix, equivalence):
             set_type = 'intersectionOf' if equivalence.get_rule_range().is_conjunction() else 'unionOf'
@@ -332,7 +349,6 @@ class OWLSpecification:
             
             return self.OWL_ALL_VALUES_FROM_TEMPLATE.format(
                 prefix = prefix, set_type = set_type, descriptions = joint_descriptions)
-
 
         def get_classname(self):
             return self._classname
