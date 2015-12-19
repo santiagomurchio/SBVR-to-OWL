@@ -51,20 +51,20 @@ class SBVRSpecification:
         sbvr_term.set_general_concept(term.find('sbvr-term-general-concept').text)
         sbvr_term.set_concept_type(term.find('sbvr-term-concept-type').text)
         sbvr_term.set_synonym(term.find('sbvr-term-synonym').text)
-        sbvr_term.set_definition(self.parse_sbvr_rule(term.find('sbvr-term-definition')))
+
+        sbvr_term.set_definition(self.parse_logical_operation(term.find('sbvr-term-definition')))
 
         if sbvr_term.is_concept_type():
-            #sbvr_term.set_necessity(self.parse_sbvr_rule(term.find('sbvr-term-necessity')))
-            sbvr_term.set_necessity(self.parse_necessity(term.find('sbvr-term-necessity')))
+            sbvr_term.set_necessity(self.parse_logical_operation(term.find('sbvr-term-necessity')))
 
         if sbvr_term.is_verb_concept():
             sbvr_term.set_necessity(self.parse_sbvr_verb_necessity(term.find('sbvr-term-necessity')))
 
         return sbvr_term
 
-    def parse_necessity(self, necessity_as_xml):
+    def parse_logical_operation(self, necessity_as_xml):
         """
-        Tries to parse a necessity, which can be a single logic operator or a conjunction, or disyunction.
+        Tries to parse a necessity, which can be a single logic operator or a conjunction, or disjunction.
         """
         if necessity_as_xml == None or len(list(necessity_as_xml)) == 0:
             return None
@@ -124,7 +124,7 @@ class SBVRSpecification:
         """
         # first try conjunction
         conjunction = term.find('sbvr-conjunction')
-        if conjunction != None:
+        if conjunction is not None:
             concepts = []
             for sbvr_concept in conjunction.findall('sbvr-concept'):
                 concepts.append(sbvr_concept.text)
@@ -135,7 +135,7 @@ class SBVRSpecification:
 
         # if not, try disjunction
         disjunction = term.find('sbvr-disjunction')
-        if disjunction != None:
+        if disjunction is not None:
             concepts = []
             for sbvr_concept in disjunction.findall('sbvr-concept'):
                 concepts.append(sbvr_concept.text)
@@ -153,6 +153,9 @@ class SBVRSpecification:
         """
         Parses the necessity for a verb concept type.
         """
+        if xml_necessity.text is None:
+            return None
+
         position_to_role = dict()
         xml_roles = xml_necessity.findall('sbvr-role')
         
@@ -162,7 +165,6 @@ class SBVRSpecification:
             position = int(xml_role.get('position'))
             positions.append(position)
             position_to_role[position] = xml_role.text
-        
 
         # iterate over the map using the correct position
         binary_verb_concept_rule = BinaryVerbConceptRule()
@@ -170,5 +172,3 @@ class SBVRSpecification:
             binary_verb_concept_rule.add_role(position_to_role[position])
 
         return binary_verb_concept_rule
-            
-        
