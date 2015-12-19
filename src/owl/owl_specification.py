@@ -131,22 +131,12 @@ class OWLSpecification:
         </rdfs:subClassOf>
         """
 
-        OWL_DISJUNCTION_NECESSARY_CONDITION_TEMPLATE = """
+        OWL_COMPOUND_NECESSARY_CONDITION_TEMPLATE = """
         <rdfs:subClassOf>
             <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
+                <owl:{necessary_type} rdf:parseType="Collection">
                     {restrictions}
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:subClassOf>
-        """
-
-        OWL_CONJUNCTION_NECESSARY_CONDITION_TEMPLATE = """
-        <rdfs:subClassOf>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    {restrictions}
-                </owl:intersectionOf>
+                </owl:{necessary_type}>
             </owl:Class>
         </rdfs:subClassOf>
         """
@@ -225,14 +215,10 @@ class OWLSpecification:
             for rule in logical_operation.get_logical_operators():
                 restrictions.append(self.build_restriction_expression(prefix, rule))
 
-            if logical_operation.is_conjunction():
-                return self.OWL_CONJUNCTION_NECESSARY_CONDITION_TEMPLATE.format(
-                    prefix = prefix,
-                    restrictions = "\n".join(restrictions))
-            else:
-                return self.OWL_DISJUNCTION_NECESSARY_CONDITION_TEMPLATE.format(
-                    prefix = prefix,
-                    restrictions = "\n".join(restrictions))
+            return self.OWL_COMPOUND_NECESSARY_CONDITION_TEMPLATE.format(
+                necessary_type = "intersectionOf" if logical_operation.is_conjunction() else "unionOf",
+                prefix = prefix,
+                restrictions = "\n".join(restrictions))
 
         def build_restriction_expression(self, prefix, expression):
             quantification_cardinality = self.get_quantification_cardinality(expression.get_quantification())
