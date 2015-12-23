@@ -164,11 +164,12 @@ class SBVRSpecification:
         for xml_role in xml_roles:
             position = int(xml_role.get('position'))
             positions.append(position)
-            position_to_role[position] = xml_role.text
+            position_to_role[position] = xml_role
 
         # iterate over the map using the correct position
         binary_verb_concept_rule = BinaryVerbConceptRule()
         for position in sorted(positions):
-            binary_verb_concept_rule.add_role(position_to_role[position])
+            binary_verb_concept_rule.add_role(
+                BinaryVerbConceptRule.BinaryVerbConceptRuleRole(position_to_role[position]))
 
         return binary_verb_concept_rule

@@ -580,40 +580,44 @@ class SBVRSpecificationTest(unittest.TestCase):
         self.assertEquals('permite_consumo_de'.lower(), term.get_synonym().lower())
         self.assertEquals(None, term.get_necessity())
 
-        
-#     def test_from_xml_binary_verb_concept(self):
-#         xml = '''<?xml version="1.0"?> 
-#                    <sbvr-specification>
-#                      <sbvr-term>
-#                        <sbvr-term-name>permite_consumo_de</sbvr-term-name>
-#                        <sbvr-term-definition></sbvr-term-definition>
-#                        <sbvr-term-general-concept></sbvr-term-general-concept>
-#                        <sbvr-term-concept-type>binary verb concept</sbvr-term-concept-type>
-#                        <sbvr-term-synonym>permite_comer</sbvr-term-synonym>
-#                        <sbvr-term-necessity>
-#                          <sbvr-role position="1">RegimenAlimentario</sbvr-role>
-#                          <sbvr-role position="2">Alimento</sbvr-role>
-#                        </sbvr-term-necessity>
-#                    </sbvr-term>
-#                  </sbvr-specification>'''
-# 
-#         root = ET.fromstring(xml)
-#         sbvr_specification = SBVRSpecification()
-#         sbvr_specification.from_xml(root)
-# 
-#         self.assert_list_len(1, sbvr_specification.get_terms())
-# 
-#         term = sbvr_specification.get_terms()[0]
-#         self.assertEquals('permite_consumo_de', term.get_name().lower())
-#         self.assertEquals(None, term.get_definition())
-#         self.assertEquals(None, term.get_general_concept())
-#         self.assertEquals('binary verb concept', term.get_concept_type().lower())
-#         self.assertEquals('permite_comer'.lower(), term.get_synonym().lower())
-#         
-#         necessity = term.get_necessity()
-#         self.assert_list_len(2, necessity.get_roles())
-#         self.assertEquals('RegimenAlimentario', necessity.get_roles()[0])
-#         self.assertEquals('Alimento', necessity.get_roles()[1])
+    def test_from_xml_binary_verb_concept(self):
+        xml = '''<?xml version="1.0"?>
+                <sbvr-specification>
+                    <sbvr-term>
+                        <sbvr-term-name>tiene_edad</sbvr-term-name>
+                        <sbvr-term-definition></sbvr-term-definition>
+                        <sbvr-term-general-concept></sbvr-term-general-concept>
+                        <sbvr-term-concept-type>binary verb concept</sbvr-term-concept-type>
+                        <sbvr-term-synonym></sbvr-term-synonym>
+                        <sbvr-term-necessity>
+                            <sbvr-role position="1">Postulante</sbvr-role>
+                            <sbvr-role position="2" xsd-type="Integer"></sbvr-role>
+                        </sbvr-term-necessity>
+                    </sbvr-term>
+                </sbvr-specification>'''
+
+        root = ET.fromstring(xml)
+        sbvr_specification = SBVRSpecification()
+        sbvr_specification.from_xml(root)
+
+        self.assert_list_len(1, sbvr_specification.get_terms())
+
+        term = sbvr_specification.get_terms()[0]
+        self.assertEquals('tiene_edad', term.get_name().lower())
+        self.assertEquals(None, term.get_definition())
+        self.assertEquals(None, term.get_general_concept())
+        self.assertEquals('binary verb concept', term.get_concept_type().lower())
+        self.assertEquals(None, term.get_synonym())
+
+        necessity = term.get_necessity()
+        self.assert_list_len(2, necessity.get_roles())
+        self.assertTrue(necessity.relates_concept_and_literal())
+
+        self.assertEquals('postulante', necessity.get_roles()[0].get_text().lower())
+        self.assertEquals(None, necessity.get_roles()[0].get_xsd_type())
+
+        self.assertEquals(None, necessity.get_roles()[1].get_text())
+        self.assertEquals("Integer", necessity.get_roles()[1].get_xsd_type())
 
     def test_from_xml_term_with_term_definition_necessity_and_verb(self):
         xml = '''<?xml version="1.0"?> 
@@ -717,8 +721,13 @@ class SBVRSpecificationTest(unittest.TestCase):
         
         verb_term_necessity = verb_term.get_necessity()
         self.assert_list_len(2, verb_term_necessity.get_roles())
-        self.assertEquals('RegimenAlimentario', verb_term_necessity.get_roles()[0])
-        self.assertEquals('Alimento', verb_term_necessity.get_roles()[1])
+        self.assertTrue(verb_term_necessity.relates_concepts())
+
+        self.assertEquals('RegimenAlimentario', verb_term_necessity.get_roles()[0].get_text())
+        self.assertEquals(None, verb_term_necessity.get_roles()[0].get_xsd_type())
+
+        self.assertEquals('Alimento', verb_term_necessity.get_roles()[1].get_text())
+        self.assertEquals(None, verb_term_necessity.get_roles()[1].get_xsd_type())
 
     def assert_list_len(self, expected_size, list):
         """
