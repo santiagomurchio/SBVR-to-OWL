@@ -2,4 +2,7 @@
 *.pyc
 #*
 .#*
+*.xml
+*.owl
+*.test
 
