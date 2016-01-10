@@ -48,7 +48,7 @@ class SBVRToOWL(OWLFile):
                 owl_class = self.build_owl_class_specification(sbvr_term)
                 self._owl_specification.add_class_specification(owl_class)
             else:
-                owl_object_property = self.build_owl_object_property(sbvr_term)
+                owl_object_property = self.build_owl_object_or_data_property(sbvr_term)
                 self._owl_specification.add_object_property(owl_object_property)
 
 
@@ -69,16 +69,21 @@ class SBVRToOWL(OWLFile):
 
         return owl_class
 
-    def build_owl_object_property(self, sbvr_term):
+    def build_owl_object_or_data_property(self, sbvr_term):
         if sbvr_term.is_verb_synonym():
             owl_object_property = OWLSpecification.OWLObjectPropertySpecification(
                 sbvr_term.get_name(), None, None)
             owl_object_property.set_equivalent_to(sbvr_term.get_synonym())
+        elif sbvr_term.is_verb_relating_concept_and_literal():
+            owl_object_property = OWLSpecification.OWLDataPropertySpecification(
+                sbvr_term.get_name(),
+                sbvr_term.get_necessity().get_roles()[0].get_text(),
+                sbvr_term.get_necessity().get_roles()[1].get_xsd_type())
         else:
             owl_object_property = OWLSpecification.OWLObjectPropertySpecification(
                 sbvr_term.get_name(),
-                sbvr_term.get_necessity().get_roles()[0],
-                sbvr_term.get_necessity().get_roles()[1])
+                sbvr_term.get_necessity().get_roles()[0].get_text(),
+                sbvr_term.get_necessity().get_roles()[1].get_text())
         return owl_object_property
 
     def write_ontology_to_owl_file(self):
@@ -98,7 +103,6 @@ class SBVRToOWL(OWLFile):
                                                      prefix = self._prefix)
         self._output_file.write(rdf_content + '\n')
         
-
     def build_owl_content(self):
         """
         Builds the owl content to write to the file.
@@ -107,26 +111,6 @@ class SBVRToOWL(OWLFile):
         owl_ontology = self.OWL_ONTOLOGY.format(prefix = self._prefix)
         file_content = '\n\n' + owl_ontology + '\n\n' + owl_content + '\n\n'
         return file_content
-
-
-#     def extract_owl_classes_and_sub_classes(self):
-#         """
-#         Handles the transformation of the General Concepts, which are 'noun concepts that
-#         classifies things on the basis of their common properties'.
-#         """
-#         # A set so we can avoid duplicates
-#         owl_classes = set()
-#         for rule in self._sbvr_specification.rules:
-#             owl_classes.add(OWLClass(rule))
-#         return owl_classes
-
-    def extract_owl_object_properties(self):
-        """ 
-        Extracts the object properties from the sbvr specification
-        """
-        # for rule in self._sbvr_specification.rules:
-        #     self.extract_owl_object_property_from_rule(rule)
-
 
     def extract_owl_object_property_from_rule(self, rule):
         """

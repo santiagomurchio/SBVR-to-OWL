@@ -5,6 +5,7 @@ from sbvrterm import *
 from binary_verb_concept_rule import *
 import xml.etree.ElementTree as ET
 
+
 class SBVRSpecification:
     """
     This class holds a list of SBVR facts and SBVR rules that form an SBVR specification

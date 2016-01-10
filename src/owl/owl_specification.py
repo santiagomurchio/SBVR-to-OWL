@@ -3,6 +3,7 @@ from src.sbvr.fact import *
 from owl_configuration import *
 from src.sbvr.logicaloperation import *
 
+
 class OWLSpecification:
     """
     This class holds the information that was retrieved from the SBVRSpecification. 
@@ -33,13 +34,11 @@ class OWLSpecification:
         """
         self._classes.append(class_specification)
 
-
     def add_object_property(self, object_property):
         """
         Adds a new Object Property object to the list.
         """
         self._object_properties.append(object_property)
-
 
     def get_class_specification(self, owl_class):
         """
@@ -47,7 +46,7 @@ class OWLSpecification:
         list, otherwise it returns None.
         """
         for owl_class_specification in self._classes:
-            if(owl_class_specification.get_classname().lower() == owl_class.lower()):
+            if owl_class_specification.get_classname().lower() == owl_class.lower():
                 return owl_class_specification
         return None
 
@@ -349,7 +348,6 @@ class OWLSpecification:
         def add_parent_class_expression(self, parent_class_expression):
             self._sub_class_of_expressions.append(parent_class_expression)
 
-
     class OWLObjectPropertySpecification:
         """
         Holds the specification of an owl object property.
@@ -379,12 +377,12 @@ class OWLSpecification:
             self._domain = op_domain
             self._range = op_range
             self._equivalent_to = None
-        
+
         def set_equivalent_to(self, equivalent_to):
             self._domain = None
             self._range = None
             self._equivalent_to = equivalent_to
-            
+
 
         def to_owl(self, prefix):
             """
@@ -402,3 +400,35 @@ class OWLSpecification:
                     op_domain = self._domain,
                     op_range = self._range)
 
+    class OWLDataPropertySpecification:
+        """
+        Holds the specification of an owl data property.
+        """
+        OWL_OBJECT_PROPERTY_TEMPLATE = """
+        <owl:DatatypeProperty rdf:about="{prefix}#{dp_name}">
+            <rdfs:domain rdf:resource="{prefix}#{dp_domain}"/>
+            <rdfs:range rdf:resource="&xsd;{dp_range_xsd}"/>
+        </owl:DatatypeProperty>
+        """
+
+        _name = None
+        _domain = None
+        _range_xsd = None
+
+        def __init__(self, dp_name, dp_domain, dp_range_xsd):
+            """
+            Initializes the instance with the given values.
+            """
+            self._name = dp_name
+            self._domain = dp_domain
+            self._range_xsd = dp_range_xsd
+
+        def to_owl(self, prefix):
+            """
+            Gets the owl (xml) format class definition of this data property.
+            """
+            return self.OWL_OBJECT_PROPERTY_TEMPLATE.format(
+                prefix=prefix,
+                dp_name=self._name,
+                dp_domain=self._domain,
+                dp_range_xsd=self._range_xsd)
