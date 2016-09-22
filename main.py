@@ -5,7 +5,7 @@ def print_help_Message():
     """
     Prints a help message to inform the user how the program should be used
     """
-    print("SBVR To OWL")
+    print("SBVR To OWL (change) ")
     print("-----------")
     print("1.- The program will first ask you to enter the name of the xml file where the SBVR rules are defined.")
     print("If the file does not exist, an error will be thrown.")
