@@ -228,14 +228,4 @@
     </sbvr-term-necessity>
   </sbvr-term>
 
-  
-  <sbvr-term>
-    <sbvr-term-name>permite_comer</sbvr-term-name>
-    <sbvr-term-definition></sbvr-term-definition>
-    <sbvr-term-general-concept></sbvr-term-general-concept>
-    <sbvr-term-concept-type>binary verb concept</sbvr-term-concept-type>
-    <sbvr-term-synonym>permite_consumo_de</sbvr-term-synonym>
-    <sbvr-term-necessity></sbvr-term-necessity>
-  </sbvr-term>
-
 </sbvr-specification>

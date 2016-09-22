@@ -200,12 +200,21 @@ class OWLSpecification:
                 quantification_cardinality = self.get_quantification_cardinality(expression.get_quantification())
                 quantification_value = expression.get_quantification().get_value() \
                     if expression.get_quantification().get_value() is not None else ''
+
+                restriction_rule = self.OWL_RESTRICTION_RULE_TEMPLATE.format(
+                    prefix=prefix,
+                    property_name=expression.get_verb(),
+                    classname=expression.get_rule_range().get_range(),
+                    cardinality_value = quantification_value,
+                    quantification_cardinality = quantification_cardinality
+                )
+
+                restriction = self.OWL_RESTRICTION_TEMPLATE.format(
+                    restriction_rule=restriction_rule
+                )
+
                 return self.OWL_NECESSARY_CONDITION_TEMPLATE.format(
-                    prefix = prefix,
-                    classname = expression.get_rule_range().get_range(),
-                    property_name = expression.get_verb(),
-                    quantification_cardinality = quantification_cardinality,
-                    cardinality_value = quantification_value)
+                    restriction=restriction)
             else:
                 return self.build_compound_sub_class_expression(prefix, logical_operation)
 

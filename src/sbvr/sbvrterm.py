@@ -66,10 +66,9 @@ class SBVRTerm:
         return self._concept_type is not None and self._concept_type.find('verb') != -1
 
     def is_verb_synonym(self):
-        return self.is_verb_concept() and  \
-            self.get_necessity() is not None and \
-            len(self.get_necessity().get_roles()) == 0 and \
-            self.get_synonym() is not None
+        return self.is_verb_concept() and self.get_synonym() is not None and \
+               (self.get_necessity() is None or len(self.get_necessity().get_roles()) == 0)
+
 
     def is_verb_relating_concept_and_literal(self):
         return self.is_verb_concept() and  \
