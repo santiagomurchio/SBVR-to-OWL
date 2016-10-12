@@ -124,9 +124,7 @@ class OWLSpecification:
 
         OWL_NECESSARY_CONDITION_TEMPLATE = """
         <rdfs:subClassOf>
-            <owl:Class>
                 {restriction}
-            </owl:Class>
         </rdfs:subClassOf>
         """
 
